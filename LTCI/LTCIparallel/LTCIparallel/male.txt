@@ -4038,3 +4038,43 @@ simulate
 the wequiv is :
 150.341	
 *********************************************************************
+*********************************************************************
+this is the wealthpercentile5
+deductile grid is :1
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.637828
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0.022519/t
+simulate
+-2.4428e+065
+implicit tax                                                  column 3 
+0.734204	
+simulate
+-1
+Net load														column 4
+0.867102	
+simulate
+0
+the wequiv is :
+-41.5255	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile6
+deductile grid is :1
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.51143
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0.00780126/t
+simulate
+-2.4428e+065
+implicit tax                                                  column 3 
+0.600943	
+simulate
+-1
+Net load														column 4
+0.800471	
+simulate
+0
+the wequiv is :
+-24.9127	
+*********************************************************************
