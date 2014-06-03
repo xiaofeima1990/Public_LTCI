@@ -1,0 +1,228 @@
+*********************************************************************
+this is the wealthpercentile6
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.665773
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.0180874/t
+simulate
+0.0181296
+implicit tax													column 3 
+0.761622	
+simulate
+0.761304
+Net load														column 4
+0.747796	
+simulate
+0.74746
+the wequiv is :
+36.2796	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile0
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+1.02064
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.172997/t
+simulate
+0.173118
+implicit tax													column 3 
+0.99675	
+simulate
+0.996257
+Net load														column 4
+0.996562	
+simulate
+0.99604
+the wequiv is :
+0.00367481	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile1
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.98985
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.144586/t
+simulate
+0.144714
+implicit tax													column 3 
+0.993956	
+simulate
+0.993456
+Net load														column 4
+0.993605	
+simulate
+0.993077
+the wequiv is :
+0.00367481	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile2
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.939566
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.0994844/t
+simulate
+0.0995662
+implicit tax													column 3 
+0.987862	
+simulate
+0.987418
+Net load														column 4
+0.987158	
+simulate
+0.986689
+the wequiv is :
+0.00367481	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile3
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.894722
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.0776946/t
+simulate
+0.0776389
+implicit tax													column 3 
+0.960752	
+simulate
+0.960479
+Net load														column 4
+0.958476	
+simulate
+0.958187
+the wequiv is :
+-20.4661	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile4
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.832283
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.0563767/t
+simulate
+0.0562572
+implicit tax													column 3 
+0.912397	
+simulate
+0.912217
+Net load														column 4
+0.907316	
+simulate
+0.907125
+the wequiv is :
+-14.302	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile5
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.765341
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.0368794/t
+simulate
+0.0367544
+implicit tax													column 3 
+0.856607	
+simulate
+0.856452
+Net load														column 4
+0.84829	
+simulate
+0.848126
+the wequiv is :
+2.49477	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile6
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.665773
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.0180874/t
+simulate
+0.0181296
+implicit tax													column 3 
+0.761622	
+simulate
+0.761304
+Net load														column 4
+0.747796	
+simulate
+0.74746
+the wequiv is :
+36.2796	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile9
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.133608
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+7.99531e-006/t
+simulate
+0
+implicit tax													column 3 
+0.157102	
+simulate
+1.#INF
+Net load														column 4
+0.108214	
+simulate
+1.#INF
+the wequiv is :
+-99999	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile7
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.534466
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.00719898/t
+simulate
+0
+implicit tax													column 3 
+0.620019	
+simulate
+1.#INF
+Net load														column 4
+0.59798	
+simulate
+1.#INF
+the wequiv is :
+83.7244	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile8
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.336597
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+0.00107564/t
+simulate
+0
+implicit tax													column 3 
+0.394544	
+simulate
+1.#INF
+Net load														column 4
+0.359428	
+simulate
+1.#INF
+the wequiv is :
+154.926	
+*********************************************************************
+*********************************************************************
+this is the wealthpercentile9
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.133608
+Medicaid share of EPDV of total LTC Exp (With private 18m deduct ins)	column 2
+7.99531e-006/t
+simulate
+0
+implicit tax													column 3 
+0.157102	
+simulate
+1.#INF
+Net load														column 4
+0.108214	
+simulate
+1.#INF
+the wequiv is :
+244.33	
+*********************************************************************
