@@ -680,28 +680,28 @@ void calcPrep(int gender)
 	//calculate actuarially fair premium
 
 
- 	for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct->P[i][j] * CalcStruct->Prob[i+1][j] / rfactor[i];
- 	for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct->B[i][j] * CalcStruct->Prob[i+1][j] / rfactor[i];
+ 	//for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct->P[i][j] * CalcStruct->Prob[i+1][j] / rfactor[i];
+ 	//for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct->B[i][j] * CalcStruct->Prob[i+1][j] / rfactor[i];
  
- 	scost=0; sben=0;
- 	for(i=0;i<TN;i++) scost=scost+cost[i][0];
- 	for(i=0;i<TN;i++) for(j=0;j<5;j++) sben=sben+ben[i][j];
+ 	//scost=0; sben=0;
+ 	//for(i=0;i<TN;i++) scost=scost+cost[i][0];
+ 	//for(i=0;i<TN;i++) for(j=0;j<5;j++) sben=sben+ben[i][j];
  
- 	AFP = ( sben / scost)*para.premium;
+ 	//AFP = ( sben / scost)*para.premium;
 ////// 	
-//	switch (deductgrid){
-//	case 1: {if(gender==0) AFP=Preimum[0][0];else AFP=Preimum[0][1]; break;}
-//	case 4: {if(gender==0) AFP=Preimum[1][0];else AFP=Preimum[1][1]; break;}
-//	case 6: {if(gender==0) AFP=Preimum[2][0];else AFP=Preimum[2][1]; break;}
-//	case 8: {if(gender==0) AFP=Preimum[3][0];else AFP=Preimum[3][1]; break;}
-//	case 10: {if(gender==0) AFP=Preimum[4][0];else AFP=Preimum[4][1]; break;}
-//	case 12: {if(gender==0) AFP=Preimum[5][0];else AFP=Preimum[5][1]; break;}										
-//	case 14: {if(gender==0) AFP=Preimum[6][0];else AFP=Preimum[6][1]; break;}	
-//	case 16: {if(gender==0) AFP=Preimum[7][0];else AFP=Preimum[7][1]; break;}
-//	case 18: {if(gender==0) AFP=Preimum[8][0];else AFP=Preimum[8][1]; break;}
-//	case 20: {if(gender==0) AFP=Preimum[9][0];else AFP=Preimum[9][1]; break;}
-//	}
-//
+	switch (deductgrid){
+	case 1: {if(gender==0) AFP=Preimum[0][0];else AFP=Preimum[0][1]; break;}
+	case 4: {if(gender==0) AFP=Preimum[1][0];else AFP=Preimum[1][1]; break;}
+	case 6: {if(gender==0) AFP=Preimum[2][0];else AFP=Preimum[2][1]; break;}
+	case 8: {if(gender==0) AFP=Preimum[3][0];else AFP=Preimum[3][1]; break;}
+	case 10: {if(gender==0) AFP=Preimum[4][0];else AFP=Preimum[4][1]; break;}
+	case 12: {if(gender==0) AFP=Preimum[5][0];else AFP=Preimum[5][1]; break;}										
+	case 14: {if(gender==0) AFP=Preimum[6][0];else AFP=Preimum[6][1]; break;}	
+	case 16: {if(gender==0) AFP=Preimum[7][0];else AFP=Preimum[7][1]; break;}
+	case 18: {if(gender==0) AFP=Preimum[8][0];else AFP=Preimum[8][1]; break;}
+	case 20: {if(gender==0) AFP=Preimum[9][0];else AFP=Preimum[9][1]; break;}
+	}
+
 	actfprem=AFP;
 
 	for(i=0;i<TN;i++) for(j=0;j<5;j++) CalcStruct->P[i][j]=(CalcStruct->P[i][j] / para.premium) *(AFP / para.MW);
