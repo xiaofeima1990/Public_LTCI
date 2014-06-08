@@ -83,10 +83,10 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <HeapReserveSize>40009600</HeapReserveSize>
-      <HeapCommitSize>40009600</HeapCommitSize>
-      <StackReserveSize>40009600</StackReserveSize>
-      <StackCommitSize>40009600</StackCommitSize>
+      <HeapReserveSize>200009600</HeapReserveSize>
+      <HeapCommitSize>200009600</HeapCommitSize>
+      <StackReserveSize>200009600</StackReserveSize>
+      <StackCommitSize>200009600</StackCommitSize>
       <LargeAddressAware>true</LargeAddressAware>
     </Link>
   </ItemDefinitionGroup>

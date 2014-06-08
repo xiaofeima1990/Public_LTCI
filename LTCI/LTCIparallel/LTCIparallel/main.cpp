@@ -63,7 +63,7 @@ void calcSetup(){
 
 
 	//medical cost
-	para.NHamt=(double)78110.0/(12*1000);      	       // % @ Monthly cost of NH  $51480  @
+	para.NHamt=78.110/12;      	       // % @ Monthly cost of NH  $51480  @
 	para.ALFamt=3.477;              //% @ Monthly cost of ALF $25908 per year  @
 
 	para.HCnonrn=0.021;               // @ Hourly HC costs (non RN) @
@@ -324,6 +324,17 @@ extern void inData(int gender,Parallel_LTCI *LTCI){
 }
 
 
+void cur_time(void)
+{
+	char *wday[]={"星期天","星期一","星期二","星期三","星期四","星期五","星期六"};
+	time_t timep;
+	struct tm *p;
+	time(&timep);
+	p=localtime(&timep); /* 获取当前时间 */
+	printf("%d 年 %02d 月 %02d 日",(1900+p->tm_year),(1+p->tm_mon),p->tm_mday);
+	printf("%s %02d : %02d : %02d \n",wday[p->tm_wday],p->tm_hour,p->tm_min,p->tm_sec);
+}
+
 
 int main(){
 		int gender;
@@ -334,24 +345,37 @@ int main(){
 		int wx;
 		int grid;
 		double alpha;
-
+		int offset;
 		task_group tasks;
 
 		time_t time_began,time_end;
 
 		//memset(&CalcStruct[0],0,sizeof(CALCSTRUCT));
 
-		gender=0;				//0 is female 1 is male
+		gender=1;				//0 is female 1 is male
 		deductgrid=DEDUCTGRID;
 		//wealthpercentile=3;		//0-9 different wealth distribution 
 
-		//typedef Parallel_LTCI* LTCIpoint;
+
+		/*
+		calculating declaration:
+		this time run for gird*4 total size 
+		from 4-8
+		so the program make some adjustment
 		
-		
-		
-		
-		
-		Parallel_LTCI  *LTCI[10];
+		*/
+
+
+		cout<<"calculating declaration: this time run for gird*4 total size from 4-8 \n so the program make some adjustment"<<endl;
+
+
+
+
+				
+		cur_time();
+		offset =4;
+
+		Parallel_LTCI  *LTCI[5];
 
 		
 		{
@@ -359,7 +383,7 @@ int main(){
 
 		for(gender=1;gender<2;gender++){
 		// initilize the class of LTCI 
-		for(wealthpercentile=0;wealthpercentile<10;wealthpercentile ++)
+		for(wealthpercentile=4;wealthpercentile<9;wealthpercentile ++)
 		{
 		switch (wealthpercentile){
 		case 0: wealth=40000;	alpha=0.98;	wx=0;		grid=20;	break;
@@ -378,7 +402,7 @@ int main(){
 		wealth =wealth*224.937/172.792;
 
 
-		LTCI[int(wealthpercentile)]=new Parallel_LTCI(wealthpercentile,gender,deductgrid,wealth,wx,grid,alpha);
+		LTCI[int(wealthpercentile)-offset]=new Parallel_LTCI(wealthpercentile,gender,deductgrid,wealth,wx,grid,alpha);
 		
 
 		}
@@ -388,7 +412,7 @@ int main(){
 			inputData(gender);
 
 
-			for(i=0;i<10;i++){
+			for(i=0;i<9-offset;i++){
 				Setup(LTCI[i]);
 				inData(gender,LTCI[i]);
 
@@ -406,58 +430,58 @@ int main(){
 
 		/*task for 1 to 4*/
 		
-				//tasks.run([&gender,&LTCI](){
+		tasks.run([&gender,&LTCI,&offset](){
+			    int wealthpercentile=4-offset; 
+			//for(int wealthpercentile=4-offset;wealthpercentile<5-offset;wealthpercentile++)
+				LTCI[wealthpercentile]->comput();
 
-				//	for(int wealthpercentile=0;wealthpercentile<4;wealthpercentile++)
-				//		LTCI[wealthpercentile]->comput();
 
 
-				//	
-				//});
+		});
 
 		/*task for  5*/
 	
-			tasks.run([&gender,&LTCI](){
-				int wealthpercentile=5; 				
+			tasks.run([&gender,&LTCI,&offset](){
+				int wealthpercentile=5-offset; 				
 				LTCI[wealthpercentile]->comput();
 
 				});
 
 		/*task for  6*/
-			tasks.run([&gender,&LTCI](){
-				int wealthpercentile=6; 				
+			tasks.run([&gender,&LTCI,&offset](){
+				int wealthpercentile=6-offset; 				
 				LTCI[wealthpercentile]->comput();
 
 			});
 
 
 			/*task for 7*/
-			tasks.run([&gender,&LTCI](){
-				int wealthpercentile=7;
+			tasks.run([&gender,&LTCI,&offset](){
+				int wealthpercentile=7-offset;
 				
 				LTCI[wealthpercentile]->comput();
 			});
 
 			/*task for 8*/
-			tasks.run([&gender,&LTCI](){
-				int wealthpercentile=8;
+			tasks.run_and_wait([&gender,&LTCI,&offset](){
+				int wealthpercentile=8-offset;
 
 				LTCI[wealthpercentile]->comput();
 			});
 
 
 			/*task for 8 to 9*/
-			tasks.run_and_wait([&gender,&LTCI](){
-				int wealthpercentile=9;			
-				LTCI[wealthpercentile]->comput();			
+			//tasks.run_and_wait([&gender,&LTCI](){
+			//	int wealthpercentile=9;			
+			//	LTCI[wealthpercentile]->comput();			
 
-			});
+			//});
 
 
 		}
 		
 
-		for(i=0;i<10;i++) delete LTCI[i];
+		for(i=0;i<10-offset-1;i++) delete LTCI[i];
 
 
 	}

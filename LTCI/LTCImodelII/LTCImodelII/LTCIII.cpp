@@ -2,7 +2,7 @@
 
 
 #define TN 480
-#define MAXGRID 3000
+#define MAXGRID 4384
 //#define DEDUCTGRID 19
 #define DEDUCTGRID 1
 #define NSIMUL		50000
@@ -162,6 +162,7 @@ void inputData(int gender);
 void willtopay(int gender);
 void writeresult(int wealthpercentile ,int gender);
 void gridsetup(int flag);
+void cur_time();
 
 PARA		para;
 CALCSTRUCT *CalcStruct;
@@ -176,16 +177,16 @@ double q[TN+12][25];
 
 
 static double Preimum[10][2]={   
-	0.233685735303342,   0.109551280463573,
-	0.219371195512388,   0.108770154992319,
-	0.214243785150615,   0.097292956233512,
-	0.196576875786372,   0.090357932043702,
-	0.192628766255739,   0.081706096480606,
-	0.180823304277538,   0.074770601427747,
-	0.171407724442527,   0.068195590248358,
-	0.161624050259332,   0.064540561457227,
-	0.150083737743445,   0.058740780752964,
-	0.143167708966303,   0.055696171016423
+	0.454813049,	0.20096996,
+	0.439435863,	0.185611818,
+	0.417177805,	0.171281873,
+	0.396360788,	0.158439056,
+	0.376949484,	0.146653683,
+	0.358820655,	0.135746975,
+	0.34173364,	0.125675334,
+	0.32572715,	0.116503167,
+	0.310722823,	0.108132752,
+	0.296530096,	0.100434849
 };
 
 int deduflag=0;
@@ -247,6 +248,17 @@ int main(){
 
 
 }
+
+//void cur_time(){
+//	char *wday[]={"星期天","星期一","星期二","星期三","星期四","星期五","星期六"};
+//	time_t timep;
+//	struct tm *p;
+//	time(&timep);
+//	p=localtime(&timep); /* 获取当前时间 */
+//	printf("%d 年 %02d 月 %02d 日",(1900+p->tm_year),(1+p->tm_mon),p->tm_mday);
+//	printf("%s %02d : %02d : %02d \n",wday[p->tm_wday],p->tm_hour,p->tm_min,p->tm_sec);
+//}
+
 
 
 void calcSetup(){
@@ -727,42 +739,53 @@ void calcPrep(int gender)
 
 void gridsetup(int flag){
 	double X,griddense;
+	int broden;
 	int WW,i;
 
 
 	X=1000;
-	griddense=1;
+	broden=3;
+	griddense=1.0/broden;
 
 	para.W0=para.wealth*(1-para.alpha);                   // % @ This section simply creates discretized grid @;
 
-// 	if (flag==1)
-// 		WW=(int)((para.W0*1.2-10000)/para.grid*griddense)+1; 
-// 	else
-// 		WW=(int)((para.W0*1.2+para.wx-10000)/para.grid*griddense)+1;
+	if (flag==1)
+		WW=(int)((para.W0*1.2-10000)/(para.grid*griddense))+1; 
+	else
+		WW=(int)((para.W0*1.2+para.wx-10000)/(para.grid*griddense))+1;
 
-// 	if (WW*para.grid<10000)
-// 	{
-// 		wdis[0]=0;
-// 		for (i=1;i<101;i++)		wdis[i]=wdis[i-1]+10*griddense/X;
-// 		for(i=101;i<151;i++)	wdis[i]=wdis[i-1]+20*griddense/X;
-// 		for(i=151;i<310;i++)	wdis[i]=wdis[i-1]+50*griddense/X;
-// 		para.wrow=310;
-// 	}else{
-// 		wdis[0]=0;
-// 		for (i=1;i<101;i++)		wdis[i]=wdis[i-1]+10*griddense/X;
-// 		for(i=101;i<151;i++)	wdis[i]=wdis[i-1]+20*griddense/X;
-// 		for(i=151;i<311;i++)	wdis[i]=wdis[i-1]+50*griddense/X;
-// 		for(i=311;i<310+WW;i++)	wdis[i]=wdis[i-1]+para.grid*griddense/X;
-// 		para.wrow=310+WW;
-// 
-// 	}
 
+
+	if (WW*para.grid<10000)
+	{
+		wdis[0]=0;
+		for (i=1;i<101*broden;i++)			wdis[i]=wdis[i-1]+10*griddense/X;
+		for(i=101*broden;i<151*broden;i++)	wdis[i]=wdis[i-1]+20*griddense/X;
+		for(i=151*broden;i<311*broden;i++)	wdis[i]=wdis[i-1]+50*griddense/X;
+		para.wrow=310*broden;
+	}else{
+		wdis[0]=0;
+		for (i=1;i<101*broden;i++)				wdis[i]=wdis[i-1]+10*griddense/X;
+		for(i=101*broden;i<151*broden;i++)		wdis[i]=wdis[i-1]+20*griddense/X;
+		for(i=151*broden;i<311*broden;i++)		wdis[i]=wdis[i-1]+50*griddense/X;
+		for(i=311*broden;i<311*broden+WW;i++)	wdis[i]=wdis[i-1]+para.grid*griddense/X;
+		para.wrow=311*broden+WW;
+
+	}
+
+
+
+
+
+
+
+	/*
 	WW=(int)((para.W0*1.2)/(para.grid*griddense))+1;
 
 	wdis[0]=0;
 	for(i=1;i<WW;i++)wdis[i]=wdis[i-1]+para.grid*griddense/X;
 
-	para.wrow=WW;
+	para.wrow=WW;*/
 
 	para.W0=para.W0/X;
 	memset(Deductile,0,sizeof(double [DEDUCTGRID]));
@@ -2274,8 +2297,8 @@ void willtopay(int gender){
 
 
 
-	for(wealthpercentil=3;wealthpercentil<10;wealthpercentil++)
-	//wealthpercentil=8;
+	//for(wealthpercentil=3;wealthpercentil<10;wealthpercentil++)
+	wealthpercentil=8;
 	{
 		time_began=time(NULL);
 		/*calculate preparation*/
@@ -2334,8 +2357,8 @@ void willtopay(int gender){
 
 		time_end=time(NULL);
 
-
-	cout<<"*********************************************************************"<<endl;
+		//cur_time();
+		cout<<"*********************************************************************"<<endl;
 		cout<<"this is the wealthpercentile"<<wealthpercentil<<endl;
 		cout<<"time consuming is (minute)"<<(time_end-time_began)/60<<endl;
 		cout<<"Medicaid share of EPDV of total LTC Exp (No private ins)		column 1"<<endl; 

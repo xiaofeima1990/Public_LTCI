@@ -13,10 +13,11 @@ static double Preimum[10][2]={
 	0.396360788,	0.158439056,
 	0.376949484,	0.146653683,
 	0.358820655,	0.135746975,
-	0.34173364,		0.125675334,
-	0.32572715,		0.116503167,
+	0.34173364,	0.125675334,
+	0.32572715,	0.116503167,
 	0.310722823,	0.108132752,
 	0.296530096,	0.100434849
+
 };
 
  PARA para;
@@ -36,7 +37,7 @@ Parallel_LTCI::Parallel_LTCI(int _wealthdistribute, int _gender, int _deductgrid
 	CalcStruct.wx	  =_wx;
 	CalcStruct.grid  =_grid;
 	CalcStruct.W0=(double)CalcStruct.wealth*(1-CalcStruct.alpha)/X;   
-
+	
 
 
 }
@@ -69,7 +70,7 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 	//都已经初始化过了
 
 
-
+	time_began=time(NULL);
 	/* choose market load */
 	para.MWcount=0;
 	if(para.MWcount==0){if (gender==0) para.MW=1.058; else para.MW=0.5;}
@@ -194,13 +195,16 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 void Parallel_LTCI::gridsetup(int flag, int wealthpercentile){
 	double X,griddense;
 	int WW,i;
+	int broden;
 	double *wdis;
 
 	wdis =CalcStruct.Wdis;
 
 
 	X=1000;
-	griddense=2;
+	broden=3;
+	griddense=1.0/broden;
+
 
 	CalcStruct.W0=CalcStruct.wealth*(1-CalcStruct.alpha);                   // % @ This section simply creates discretized grid @;
 
@@ -210,40 +214,40 @@ void Parallel_LTCI::gridsetup(int flag, int wealthpercentile){
 		WW=(int)((CalcStruct.W0*1.2+CalcStruct.wx-10000)/(CalcStruct.grid*griddense))+1;
 
 
-
+	
 	if (WW*CalcStruct.grid<10000)
 	{
 		wdis[0]=0;
-		for (i=1;i<101;i++)		wdis[i]=wdis[i-1]+10*griddense/X;
-		for(i=101;i<151;i++)	wdis[i]=wdis[i-1]+20*griddense/X;
-		for(i=151;i<311;i++)	wdis[i]=wdis[i-1]+50*griddense/X;
-		CalcStruct.wrow=310;
+		for (i=1;i<101*broden;i++)			wdis[i]=wdis[i-1]+10*griddense/X;
+		for(i=101*broden;i<151*broden;i++)	wdis[i]=wdis[i-1]+20*griddense/X;
+		for(i=151*broden;i<311*broden;i++)	wdis[i]=wdis[i-1]+50*griddense/X;
+		CalcStruct.wrow=310*broden;
 	}else{
 		wdis[0]=0;
-		for (i=1;i<101;i++)		wdis[i]=wdis[i-1]+10*griddense/X;
-		for(i=101;i<151;i++)	wdis[i]=wdis[i-1]+20*griddense/X;
-		for(i=151;i<310;i++)	wdis[i]=wdis[i-1]+50*griddense/X;
-		for(i=310;i<311+WW;i++)	wdis[i]=wdis[i-1]+CalcStruct.grid*griddense/X;
-		CalcStruct.wrow=310+WW;
+		for (i=1;i<101*broden;i++)				wdis[i]=wdis[i-1]+10*griddense/X;
+		for(i=101*broden;i<151*broden;i++)		wdis[i]=wdis[i-1]+20*griddense/X;
+		for(i=151*broden;i<311*broden;i++)		wdis[i]=wdis[i-1]+50*griddense/X;
+		for(i=311*broden;i<311*broden+WW;i++)	wdis[i]=wdis[i-1]+CalcStruct.grid*griddense/X;
+		CalcStruct.wrow=311*broden+WW;
 
 	}
 
-	//WW=600;
-	//griddense=(int)((CalcStruct.W0*1.5)/WW);
+	/*WW=4000;
+	griddense=(int)((CalcStruct.W0*1.5)/WW);
+
+	wdis[0]=0;
+	for(i=1;i<WW;i++)wdis[i]=wdis[i-1]+griddense/X;
+
+	CalcStruct.wrow=WW;
+*/
+	//WW=(int)((CalcStruct.W0*1.2)/(CalcStruct.grid*griddense))+1;
 
 	//wdis[0]=0;
-	//for(i=1;i<WW;i++)wdis[i]=wdis[i-1]+griddense/X;
+	//for(i=1;i<WW;i++)wdis[i]=wdis[i-1]+CalcStruct.grid*griddense/X;
 
 	//CalcStruct.wrow=WW;
 
- 	//WW=(int)((CalcStruct.W0*1.2)/(CalcStruct.grid*griddense))+1;
- 
- 	//wdis[0]=0;
- 	//for(i=1;i<WW;i++)wdis[i]=wdis[i-1]+CalcStruct.grid*griddense/X;
- 
- 	//CalcStruct.wrow=WW;
-
-
+	if (CalcStruct.wrow>MAXGRID) {cout<<"maxgrid is too small"<<endl;exit(0);}
 
 	CalcStruct.W0=CalcStruct.W0/X;
 
@@ -1172,24 +1176,30 @@ void Parallel_LTCI::writeresult(int wealthpercentile ,int gender){
 		double EPDVMedical;
 		double MUstar,Mstar;
 		double Istarown,Istarnone;
+				
 		
-		
+		char *wday[]={"星期天","星期一","星期二","星期三","星期四","星期五","星期六"};
+		time_t timep;
+		struct tm *p;
+		time(&timep);
+		p=localtime(&timep); /* 获取当前时间 */
 
 		MUstar=Digram.MstarNI;Istarnone=Digram.IstarNI;
-
 		Mstar=Digram.Mstar;Istarown=Digram.Istar;
-
 		EPDVMedical=Digram.Medicalstar;
-
 
 
 		ofstream out(filename[gender], ios::app);
 		if (out.is_open())   
 		{  
+			
 
 			out<<"*********************************************************************"<<endl;
+			out<<(1900+p->tm_year)<<"年"<<(1+p->tm_mon)<<"月"<<p->tm_mday<<"日"<<p->tm_hour<<"："<<p->tm_min<<":"<<p->tm_sec<<endl;
 			out<<"this is the wealthpercentile"<<wealthpercentile<<endl;
 			out<<"deductile grid is :"<<deductgrid<<endl;
+			out<<"the grid size is "<<CalcStruct.wrow<<endl;
+			//out<<"consuming time :"<<(time_began-time_end)/60<<endl;
 			out<<"Medicaid share of EPDV of total LTC Exp (No private ins)		column 1"<<endl; 
 			out<<MUstar/EPDVMedical<<endl;	
 			out<<"Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2"<<endl;
@@ -1228,12 +1238,17 @@ void Parallel_LTCI::outprint(){
 	double EPDVMedical;
 	double MUstar,Mstar;
 	double Istarown,Istarnone;
+	time_t	time_began;
 	Mstar=Digram.Mstar;EPDVMedical=Digram.Medicalstar;Istarown=Digram.Istar;
 	MUstar=Digram.MstarNI;Istarnone=Digram.IstarNI;
+	
+	time_end=time(NULL);
 
-
+			cur_time();
             cout<<"*********************************************************************"<<endl;
 			cout<<"this is the wealthpercentile"<<wealthpercentile<<endl;
+			cout<<"the grid size is "<<CalcStruct.wrow<<endl;
+			//cout<<"consuming time :"<<(time_began-time_end)/60<<endl;
 			cout<<"Medicaid share of EPDV of total LTC Exp (No private ins)		column 1"<<endl; 
 			cout<<MUstar/EPDVMedical<<endl;
 			cout<<"simulate"<<endl;
@@ -1278,7 +1293,7 @@ void Parallel_LTCI:: fn_util(double *Cons,double *zeroind,double* OUTutil,double
 
 }
 
-void Parallel_LTCI:: comput(){
+void Parallel_LTCI::comput(){
 	calcPrep(gender,wealthpercentile,1);
 	calcModel(wealthpercentile,false);
 	calcPrep(gender,wealthpercentile,0);
@@ -1287,9 +1302,15 @@ void Parallel_LTCI:: comput(){
 	writeresult(wealthpercentile,gender);
 	outprint();
 
+}
 
-
-
-
-
+void Parallel_LTCI::cur_time()
+{
+	char *wday[]={"星期天","星期一","星期二","星期三","星期四","星期五","星期六"};
+	time_t timep;
+	struct tm *p;
+	time(&timep);
+	p=localtime(&timep); /* 获取当前时间 */
+	printf("-------%d 年 %02d 月 %02d 日",(1900+p->tm_year),(1+p->tm_mon),p->tm_mday);
+	printf("%s %02d : %02d : %02d ---------\n",wday[p->tm_wday],p->tm_hour,p->tm_min,p->tm_sec);
 }

@@ -91,7 +91,7 @@ griddense=1/1; % If griddense smaller than 1, the larger grid size.
                                     end;
 
 
-                                    Binf=0.05;                     % @ rate of nominal growth of benefits under LTCI policy  @;
+                                    Binf=0;                     % @ rate of nominal growth of benefits under LTCI policy  @;
                                     Bben=4740/X;                % @ Monthly benefit from LTCI policy     		            @;
                                    
 

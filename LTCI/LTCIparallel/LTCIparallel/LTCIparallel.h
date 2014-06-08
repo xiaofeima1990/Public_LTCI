@@ -15,9 +15,9 @@ using namespace Concurrency;
 
   
 #define TN 480
-#define MAXGRID 3001
+#define MAXGRID 6955
 #define WEALTHPERCENTIL 10
-#define DEDUCTGRID 1
+#define DEDUCTGRID 8
 #define NSIMUL		10000
 
 
@@ -175,7 +175,7 @@ private:
 	DIGRAM			Digram;
 	int				Deductile[20];
 	int				deductgrid;
-
+	time_t			time_began,time_end;
 
 public:
 	Parallel_LTCI(int _wealthdistribute = 3, int _gender = 0, int _deductgrid = 1, int _wealth = 126875, int _wx=30000,int _grid = 75, double _alpha = 0.82);
@@ -188,6 +188,7 @@ public:
 	void outprint();
 	void fn_util(double *Cons,double *zeroind,double* OUTutil,double crra,double Consplus,double phi);
 	void comput();
+	void cur_time();
 };
 
 
