@@ -344,6 +344,8 @@ int main(){
 		int wealth;
 		int wx;
 		int grid;
+		int temp_test;
+
 		double alpha;
 		int offset;
 		task_group tasks;
@@ -367,7 +369,11 @@ int main(){
 
 
 		cout<<"calculating declaration: this time run for gird*4 total size from 4-8 \n so the program make some adjustment"<<endl;
-
+		j=0;
+		temp_test=10;
+		cout<<"temp_test + (j>0) ="<<temp_test + (j>0)<<endl;
+		j=1;
+		cout<<"temp_test + (j>0) ="<<temp_test + (j>0)<<endl;
 
 
 
