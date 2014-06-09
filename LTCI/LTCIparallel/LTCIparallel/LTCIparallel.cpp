@@ -1000,7 +1000,6 @@ void Parallel_LTCI::simulate(int wealthpercentile){
 		double *wdis;
 
 
-
 		typedef struct{
 			int	   curWW[NSIMUL];
 			int	   nextWW[NSIMUL];

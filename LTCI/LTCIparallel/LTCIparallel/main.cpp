@@ -8,6 +8,15 @@ extern double q[TN+12][25];
 extern PARA para;
 extern CALCSTRUCT CalcStructv;
 
+typedef struct {
+	double EPDVMedical[10];
+	double MUstar[10],Mstar[10];
+	double Istarown[10],Istarnone[10];
+	double wequiv[10];
+
+
+} RECORD;
+
 
 void calcSetup(){
 
@@ -323,6 +332,12 @@ extern void inData(int gender,Parallel_LTCI *LTCI){
 
 }
 
+extern void record_result(RECORD *record, Parallel_LTCI *LTCI){
+
+
+
+}
+
 
 void cur_time(void)
 {
@@ -336,10 +351,12 @@ void cur_time(void)
 }
 
 
+
+
 int main(){
 		int gender;
 		int wealthpercentile;
-		int i,j;
+		int i,j,l;
 		int deductgrid;
 		int wealth;
 		int wx;
@@ -351,6 +368,15 @@ int main(){
 		task_group tasks;
 
 		time_t time_began,time_end;
+
+
+		/*
+		output variable 
+		*/
+
+		RECORD record;
+
+
 
 		//memset(&CalcStruct[0],0,sizeof(CALCSTRUCT));
 
@@ -477,15 +503,19 @@ int main(){
 
 
 			/*task for 8 to 9*/
-			//tasks.run_and_wait([&gender,&LTCI](){
-			//	int wealthpercentile=9;			
-			//	LTCI[wealthpercentile]->comput();			
+			tasks.run_and_wait([&gender,&LTCI](){
+				int wealthpercentile=9;			
+				LTCI[wealthpercentile]->comput();			
 
-			//});
+			});
 
 
 		}
 		
+
+
+
+
 
 		for(i=0;i<10-offset-1;i++) delete LTCI[i];
 
