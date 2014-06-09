@@ -24,6 +24,8 @@ using namespace Concurrency;
 
 
 
+
+
 typedef struct{
 
 	double crra;
@@ -164,6 +166,7 @@ class Parallel_LTCI{
 
 	friend void Setup(Parallel_LTCI *LTCI);
 	friend void inData(int gender,Parallel_LTCI *LTCI );
+	friend void record_result(Parallel_LTCI *LTCI);
 	
 private:
 
