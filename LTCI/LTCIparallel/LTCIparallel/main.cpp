@@ -430,14 +430,14 @@ int main(){
 
 		/*task for 1 to 4*/
 		
-		tasks.run([&gender,&LTCI,&offset](){
-			    int wealthpercentile=4-offset; 
-			//for(int wealthpercentile=4-offset;wealthpercentile<5-offset;wealthpercentile++)
-				LTCI[wealthpercentile]->comput();
+		//tasks.run([&gender,&LTCI,&offset](){
+		//	    int wealthpercentile=4-offset; 
+		//	//for(int wealthpercentile=4-offset;wealthpercentile<5-offset;wealthpercentile++)
+		//		LTCI[wealthpercentile]->comput();
 
 
 
-		});
+		//});
 
 		/*task for  5*/
 	

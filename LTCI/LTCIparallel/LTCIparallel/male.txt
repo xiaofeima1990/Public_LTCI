@@ -82,3 +82,91 @@ simulate
 the wequiv is :
 5.01863	
 *********************************************************************
+*********************************************************************
+2014年6月9日2：34:3
+this is the wealthpercentile4
+deductile grid is :8
+the grid size is 3322
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.73342
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0.17751/t
+simulate
+-2.4428e+065
+implicit tax                                                  column 3 
+0.835821	
+simulate
+-1
+Net load														column 4
+0.91791	
+simulate
+0
+the wequiv is :
+-38.36	
+*********************************************************************
+*********************************************************************
+2014年6月9日15：2:44
+this is the wealthpercentile5
+deductile grid is :8
+the grid size is 5066
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.634427
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0.12396/t
+simulate
+-2.4428e+065
+implicit tax                                                  column 3 
+0.767497	
+simulate
+-1
+Net load														column 4
+0.883748	
+simulate
+0
+the wequiv is :
+-31.8726	
+*********************************************************************
+*********************************************************************
+2014年6月9日16：59:23
+this is the wealthpercentile6
+deductile grid is :8
+the grid size is 4868
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.510839
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0.0732919/t
+simulate
+-2.4428e+065
+implicit tax                                                  column 3 
+0.65786	
+simulate
+-1
+Net load														column 4
+0.82893	
+simulate
+0
+the wequiv is :
+-16.6531	
+*********************************************************************
+*********************************************************************
+2014年6月9日21：30:31
+this is the wealthpercentile7
+deductile grid is :8
+the grid size is 6070
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0.36171
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0.0336686/t
+simulate
+-2.4428e+065
+implicit tax                                                  column 3 
+0.493217	
+simulate
+-1
+Net load														column 4
+0.746608	
+simulate
+0
+the wequiv is :
+5.07051	
+*********************************************************************
