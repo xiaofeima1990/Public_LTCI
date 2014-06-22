@@ -17,6 +17,9 @@ typedef struct {
 
 } RECORD;
 
+RECORD record;
+
+
 
 void calcSetup(){
 
@@ -61,28 +64,28 @@ void calcSetup(){
 
 	para.crra=3;
 
-	para.Food=0.644;      //Food = SSI level used to parameterize food/housing benefit
+	para.Food=(double)0.644;      //Food = SSI level used to parameterize food/housing benefit
 
 	para.Wbar=2;	      // @ wealth excluded from Medicaid spend-down (base case is 2000/X)	@ 
 	para.Cbar=0.03;		  // @ min consumption provided if on Medicaid	@
-	para.Cbar2=0.674;        // @ CBAR WHILE IN HOME CARE @;
+	para.Cbar2=(double)0.674;        // @ CBAR WHILE IN HOME CARE @;
 
 	para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare @
 
 
 
 	//medical cost
-	para.NHamt=78.110/12;      	       // % @ Monthly cost of NH  $51480  @
-	para.ALFamt=3.477;              //% @ Monthly cost of ALF $25908 per year  @
+	para.NHamt=(double)78.11/12;      	       // % @ Monthly cost of NH  $51480  @
+	para.ALFamt=(double)3.477;              //% @ Monthly cost of ALF $25908 per year  @
 
 	para.HCnonrn=0.021;               // @ Hourly HC costs (non RN) @
 	para.HCrn=0.043;                  // @ Hourly HC costs (RN)  @
 
 
+	para.MWcount=(int)1;					//market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
 
-
-	para.Binf=0.05;
-	para.Bben=4740/X;
+	para.Binf=(double)0.05;
+	para.Bben=(double)4740.0/X;
 
 
 
@@ -106,6 +109,7 @@ void calcSetup(){
 	para.Minf=pow((1+para.Minf),(1.0/12))-1;
 	para.Binf=pow((1+para.Binf),(1.0/12))-1;
 
+	
 
 	
 
@@ -223,24 +227,24 @@ void inputData(int gender){
 			fclose(infile2);
 		}
 
-	if(gender==0)
-	infile3 = fopen("healthstatef.txt","r");
-	else
-	infile3 = fopen("healthstatem.txt","r");
+	//if(gender==0)
+	//infile3 = fopen("healthstatef.txt","r");
+	//else
+	//infile3 = fopen("healthstatem.txt","r");
 
-	if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
+	//if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
 
-	for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
-		fgets(stringline,1000,infile3);
-		for(sim_p2=0;sim_p2<TN;sim_p2++){
-			sscanf(&stringline[sim_p2*2], "%d", &simtemp);
-			healthstate[sim_p1][sim_p2]=(int)simtemp;
-		
-		
-		}
+	//for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
+	//	fgets(stringline,1000,infile3);
+	//	for(sim_p2=0;sim_p2<TN;sim_p2++){
+	//		sscanf(&stringline[sim_p2*2], "%d", &simtemp);
+	//		healthstate[sim_p1][sim_p2]=(int)simtemp;
+	//	
+	//	
+	//	}
 
-	}
-	fclose(infile3);
+	//}
+	//fclose(infile3);
 
 
 
@@ -332,8 +336,12 @@ extern void inData(int gender,Parallel_LTCI *LTCI){
 
 }
 
-extern void record_result(RECORD *record, Parallel_LTCI *LTCI){
-
+extern void record_result(int wealthpercentile,Parallel_LTCI *LTCI){
+	record.MUstar[wealthpercentile]=LTCI->Digram.MstarNI;
+	record.Istarnone[wealthpercentile]=LTCI->Digram.IstarNI;
+	record.Mstar[wealthpercentile]=LTCI->Digram.Mstar;
+	record.Istarown[wealthpercentile]=LTCI->Digram.Istar;
+	record.EPDVMedical[wealthpercentile]=LTCI->Digram.Medicalstar;
 
 
 }
@@ -362,9 +370,14 @@ int main(){
 		int wx;
 		int grid;
 		int temp_test;
+		int Sstart;
+
 
 		double alpha;
 		int offset;
+	    char filename[11]={"table.txt"};
+
+
 		task_group tasks;
 
 		time_t time_began,time_end;
@@ -373,10 +386,6 @@ int main(){
 		/*
 		output variable 
 		*/
-
-		RECORD record;
-
-
 
 		//memset(&CalcStruct[0],0,sizeof(CALCSTRUCT));
 
@@ -395,19 +404,15 @@ int main(){
 
 
 		cout<<"calculating declaration: this time run for gird*4 total size from 4-8 \n so the program make some adjustment"<<endl;
-		j=0;
-		temp_test=10;
-		cout<<"temp_test + (j>0) ="<<temp_test + (j>0)<<endl;
-		j=1;
-		cout<<"temp_test + (j>0) ="<<temp_test + (j>0)<<endl;
 
 
 
 				
 		cur_time();
-		offset =4;
+		offset =0;
+		Sstart=START;
 
-		Parallel_LTCI  *LTCI[5];
+		Parallel_LTCI  *LTCI[3];
 
 		
 		{
@@ -415,7 +420,7 @@ int main(){
 
 		for(gender=1;gender<2;gender++){
 		// initilize the class of LTCI 
-		for(wealthpercentile=4;wealthpercentile<9;wealthpercentile ++)
+		for(wealthpercentile=Sstart;wealthpercentile<10;wealthpercentile ++)
 		{
 		switch (wealthpercentile){
 		case 0: wealth=40000;	alpha=0.98;	wx=0;		grid=20;	break;
@@ -431,10 +436,10 @@ int main(){
 
 
 		}
-		wealth =wealth*224.937/172.792;
+		wealth =wealth*224.937/172.192;
 
 
-		LTCI[int(wealthpercentile)-offset]=new Parallel_LTCI(wealthpercentile,gender,deductgrid,wealth,wx,grid,alpha);
+		LTCI[int(wealthpercentile)-Sstart]=new Parallel_LTCI(wealthpercentile,gender,deductgrid,wealth,wx,grid,alpha);
 		
 
 		}
@@ -444,7 +449,7 @@ int main(){
 			inputData(gender);
 
 
-			for(i=0;i<9-offset;i++){
+			for(i=0;i<10-Sstart-offset;i++){
 				Setup(LTCI[i]);
 				inData(gender,LTCI[i]);
 
@@ -462,62 +467,85 @@ int main(){
 
 		/*task for 1 to 4*/
 		
-		//tasks.run([&gender,&LTCI,&offset](){
-		//	    int wealthpercentile=4-offset; 
-		//	//for(int wealthpercentile=4-offset;wealthpercentile<5-offset;wealthpercentile++)
-		//		LTCI[wealthpercentile]->comput();
+	//	tasks.run([&gender,&LTCI,&offset](){
+	//		   // int wealthpercentile; 
+	//		for(int wealthpercentile=1;wealthpercentile<5;wealthpercentile++)
+	//			LTCI[wealthpercentile]->comput();
 
 
 
-		//});
+	//	});
 
-		/*task for  5*/
-	
-			tasks.run([&gender,&LTCI,&offset](){
-				int wealthpercentile=5-offset; 				
-				LTCI[wealthpercentile]->comput();
+	////	/*task for  5*/
+	//
+	//		tasks.run([&gender,&LTCI,&offset](){
+	//			int wealthpercentile=5-offset; 				
+	//			LTCI[wealthpercentile]->comput();
 
-				});
+	//			});
 
-		/*task for  6*/
-			tasks.run([&gender,&LTCI,&offset](){
-				int wealthpercentile=6-offset; 				
-				LTCI[wealthpercentile]->comput();
+	//	 /*task for  6*/
+	//		tasks.run([&gender,&LTCI,&offset](){
+	//			int wealthpercentile=6-offset; 				
+	//			LTCI[wealthpercentile]->comput();
 
-			});
+	//		});
 
 
-			/*task for 7*/
-			tasks.run([&gender,&LTCI,&offset](){
-				int wealthpercentile=7-offset;
-				
-				LTCI[wealthpercentile]->comput();
-			});
+	//		/*task for 7*/
+		tasks.run([&gender,&LTCI,&offset](){
+			int wealthpercentile=7-7;
+
+			LTCI[wealthpercentile]->comput();
+		});
 
 			/*task for 8*/
-			tasks.run_and_wait([&gender,&LTCI,&offset](){
-				int wealthpercentile=8-offset;
+			tasks.run([&gender,&LTCI,&offset](){
+				int wealthpercentile=8-7;
 
 				LTCI[wealthpercentile]->comput();
 			});
 
 
 			/*task for 8 to 9*/
-			tasks.run_and_wait([&gender,&LTCI](){
-				int wealthpercentile=9;			
+			tasks.run_and_wait([&gender,&LTCI,&offset](){
+				int wealthpercentile=9-7;			
 				LTCI[wealthpercentile]->comput();			
 
 			});
 
 
 		}
-		
+		// output some variables
+
+		//if(para.MWcount==0){if (gender==0) para.MW=1.058; else para.MW=0.5;}
+		//else if(para.MWcount==1){if (gender==0) para.MW=0.6; else para.MW=0.3;}
+		//else if(para.MWcount==2){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
+		//else if(para.MWcount==3){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
+		//else if(para.MWcount==4){if (gender==0) para.MW=1; else para.MW=1;}
+
+		//ofstream out(filename, ios::app);
+		//if (out.is_open())   
+		//{
+		//out<<"*********************************************************************"<<endl;
+		//out<<"deductile grid is :"<<deductgrid<<endl;
+		//for(i=1;i<10-offset;i++) record_result(i,LTCI[i]);
+		//out<<"10th to 90th "<<endl;
+		//for(i=1;i<10-offset;i++){
+		//out<<i<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
+		//out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
+		//out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
+		//out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
+		//out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
+		//out<<endl;
+		//}
+		//out<<"*********************************************************************"<<endl;
+		//out.close();  
+
+		//}
 
 
-
-
-
-		for(i=0;i<10-offset-1;i++) delete LTCI[i];
+		for(i=0;i<10-offset-START;i++) delete LTCI[i];
 
 
 	}

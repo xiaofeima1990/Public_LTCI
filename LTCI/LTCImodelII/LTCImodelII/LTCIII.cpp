@@ -2,9 +2,9 @@
 
 
 #define TN 480
-#define MAXGRID 4384
+#define MAXGRID 6087
 //#define DEDUCTGRID 19
-#define DEDUCTGRID 1
+#define DEDUCTGRID 8
 #define NSIMUL		50000
 /************************************************************************/
 /* a test for my suppose only two indexes for in period and out period 
@@ -834,6 +834,7 @@ void calcModel( int flagLTCI ){
 	int stateFlag;  //0: no medicaid 1: j=1 hc 2: alf 3:nh 
 	int wcrit,tempIndex;
 	int Vr;
+	int deductgrid;
 
 	double Cbar,Wbcar,Cbar2,r;
 	double phi;
@@ -915,6 +916,7 @@ void calcModel( int flagLTCI ){
 	wrow=para.wrow;
 	tn=TN;
 	stateFlag=0;
+	deductgrid=DEDUCTGRID;
 
 	
 	lcpbuffer = malloc( sizeof(LOCALSTRUCT));
@@ -950,100 +952,100 @@ void calcModel( int flagLTCI ){
 	for(j=0;j<4;j++)
 	{
 
-	   for(deduct=0;deduct<DEDUCTGRID;deduct++)	
+	   for(deduct=0;deduct<deductgrid;deduct++)	
 		for(i=0;i<wrow;i++)
 		{
 			//memset(VV,0,sizeof(double [row][4]));
 
-			constraint=A+LTCI[t][j]*(deduct+1>=DEDUCTGRID-1)+wdis[i]-M[t][j];
-		
+		constraint=A+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )+wdis[i]-M[t][j];
 
-			/* Medicaid is defined so that (a) if Medicaid exists, and 
-         (b) starting wealth for period falls below Wbar (asset test) and 
-         (c) income plus LCTI income is less than sum of medical expenses and minimum 
-         consumption level Cbar, then person permitted to consume max of Cbar. */;
 
-        /* Income test includes annuity, difference between insurance and expenses, +interest income) 
-        % Since wdis already includes the interest, the asset test must subtract interest back off.  
-        % The subtraction in the asset test and addition in the income test cancel in the combined constraint. */
-			//constraint=A+LTCI[t][j]+wdis[i]-M[t][j];
-			
-			if(para.Mcaid==1 &&  constraint < (Cbar2+Wbcar) && constraint-wdis[i]/(1+r) < Cbar2 && j==1)
-			{
-				
-				if (wdis[i]/(1+r) > Wbcar) wextra = wdis[i]/(1+r) -Wbcar;
-				else wextra=0;
-				for(k=0;k<wrow;k++)
-				{
-					
-					lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar2-wextra;
-					if(lcp->c[deduct][k]>0)lcp->zeroind[deduct][k]=0;else {lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
-				}
+					/* Medicaid is defined so that (a) if Medicaid exists, and 
+					(b) starting wealth for period falls below Wbar (asset test) and 
+					(c) income plus LCTI income is less than sum of medical expenses and minimum 
+					consumption level Cbar, then person permitted to consume max of Cbar. */;
 
-				lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+1>=DEDUCTGRID-1)+r*wdis[i]/(1+r) -Cbar2);
-				if(deduct+1>=DEDUCTGRID-1)lcp->insurance[j][deduct][i] = LTCI[t][j];
+					/* Income test includes annuity, difference between insurance and expenses, +interest income) 
+					% Since wdis already includes the interest, the asset test must subtract interest back off.  
+					% The subtraction in the asset test and addition in the income test cancel in the combined constraint. */
 
-			}else if(para.Mcaid==1 &&  constraint < (Cbar+Wbcar) &&  constraint-wdis[i]/(1+r)< Cbar && j>1 )
-			{
-				
-				if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
-				else wextra=0;
+					if(para.Mcaid==1 &&  constraint < (Cbar2+Wbcar) && constraint-wdis[i]/(1+r) < Cbar2 && j==1)
+					{
 
-				
-				if(deduct+1>=DEDUCTGRID-1)lcp->insurance[j][deduct][i] = LTCI[t][j];
-				lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+1>=DEDUCTGRID-1)+r*wdis[i]/(1+r) -Cbar);
-				
-				for(k=0;k<wrow;k++)
-				{
-					
-					lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar-wextra;
-					if(lcp->c[deduct][k]>0) lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
-				}
+						if (wdis[i]/(1+r) > Wbcar) wextra = wdis[i]/(1+r) -Wbcar;
+						else wextra=0;
 
-				
-			}else { // not on medicaid  // LTCI pay for insurance
-	
-				for(k=0;k<wrow;k++)
-				{
-					lcp->c[deduct][k]=wdis[i]-wdis[k]/(1+r) +A +LTCI[t][j]*(j==0 ||(deduct+1>=DEDUCTGRID-1))-M[t][j];
-					if(lcp->c[deduct][k]>0 && wdis[i]+A-M[t][j]+LTCI[t][j]*(j==0 ||(deduct+1>=DEDUCTGRID-1)) -lcp->c[deduct][k]>=0)lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
-				}
+						for(k=0;k<wrow;k++)
+						{
 
-				lcp->Medicaid[j][deduct][i]=0;
-				if (j>=1) lcp->insurance[j][deduct][i]=LTCI[t][j]*(deduct+1>=DEDUCTGRID-1);
+							lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar2-wextra;
+							if(lcp->c[deduct][k]>0)lcp->zeroind[deduct][k]=0;else {lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
+						}
 
-			}
-		
-				
-			/* Note that the consumption vector will include negative values of consumption.  Thus there are
-         two constraints imposed -- one is that consumption be feasible, in that the individual's 
-         starting wealth, annuity income, and net medical/LTCI payments must leave them with enough 
-         income to consume the level c indicated.  The second is that consumption must be positive.  
-         if either of these constraints fail, then the indicator zeroind replaces c with a small 
-         positive value (.0001) just so that the CRRA utility function does not explode -- but 
-         then later, it must replace the utility level associated with that consumption with neginf 
-         (which stands for minus infinitiy - but is just a big negative number) so that we 
-         are sure the program does not choose that path.  In some cases, these tests are redundant */;
-                                 
-        /* Calculate value function for each combination of C(t) and W(t+1), given 
-         that you came into this period with w(t) = wdis(i), and health status j */;
-         
-         /* Note, the only reason it is necessary to do the following if-then statements is
-         if we one uses state dependent utility.  */
+						lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )+r*wdis[i]/(1+r) -Cbar2);
+						if(deduct+(j>0)>deductgrid-2)lcp->insurance[j][deduct][i] = LTCI[t][j];
 
-		
-		switch(j){
-		case 0: { consplus=0;phi=para.phi_hc; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi);  break;}
-		case 1: {  consplus=0;phi=para.phi_alf; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi); break;}
-			//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
-			//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
-		case 2: { consplus=para.Food;phi=para.phi_nh; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi);break; }
+					}else if(para.Mcaid==1 &&  constraint < (Cbar+Wbcar) &&  constraint-wdis[i]/(1+r)< Cbar && j>1 )
+					{
 
-			//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
-			//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
-		case 3: { consplus=para.Food;phi=para.phi_nh; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi); break;}
+						if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
+						else wextra=0;
 
-		}
+
+						if(deduct+(j>0)>deductgrid-2)lcp->insurance[j][deduct][i] = LTCI[t][j];
+						lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )+r*wdis[i]/(1+r) -Cbar2);
+
+						for(k=0;k<wrow;k++)
+						{
+
+							lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar-wextra;
+							if(lcp->c[deduct][k]>0) lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
+						}
+
+
+					}else { // not on medicaid  // LTCI pay for insurance
+
+						for(k=0;k<wrow;k++)
+						{
+							lcp->c[deduct][k]=wdis[i]-wdis[k]/(1+r) +A +LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )-M[t][j];
+							if(lcp->c[deduct][k]>0 && wdis[i]+A-M[t][j]+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )-lcp->c[deduct][k]>=0)lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
+						}
+
+						lcp->Medicaid[j][deduct][i]=0;
+						if (j>=1) lcp->insurance[j][deduct][i]=LTCI[t][j]*(deduct+(j>0)>deductgrid-2);
+
+					}
+
+
+					/* Note that the consumption vector will include negative values of consumption.  Thus there are
+					two constraints imposed -- one is that consumption be feasible, in that the individual's 
+					starting wealth, annuity income, and net medical/LTCI payments must leave them with enough 
+					income to consume the level c indicated.  The second is that consumption must be positive.  
+					if either of these constraints fail, then the indicator zeroind replaces c with a small 
+					positive value (.0001) just so that the CRRA utility function does not explode -- but 
+					then later, it must replace the utility level associated with that consumption with neginf 
+					(which stands for minus infinitiy - but is just a big negative number) so that we 
+					are sure the program does not choose that path.  In some cases, these tests are redundant */;
+
+					/* Calculate value function for each combination of C(t) and W(t+1), given 
+					that you came into this period with w(t) = wdis(i), and health status j */;
+
+					/* Note, the only reason it is necessary to do the following if-then statements is
+					if we one uses state dependent utility.  */
+					switch(j){
+					case 0: { consplus=0;phi=para.phi_hc; break;}
+					case 1: {  consplus=0;phi=para.phi_alf;  break;}
+							//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
+							//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
+					case 2: { consplus=para.Food;phi=para.phi_nh; break; }
+
+							//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
+							//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
+					case 3: { consplus=para.Food;phi=para.phi_nh;break;}
+
+					}
+					fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi);
+
 
 
 	/*	for(l=0;l<wrow;l++) lcp->VV[j][deduct][l]=phi*lcp->OUTutil[deduct][l]*(1-lcp->zeroind[l]) +lcp->zeroind[l]*(-99999) ;*/
@@ -1091,79 +1093,82 @@ void calcModel( int flagLTCI ){
 
 
 	for (j=0;j<4;j++)
-	for(deduct=0;deduct<DEDUCTGRID;deduct++)
+	for(deduct=0;deduct<deductgrid;deduct++)
 	for(i=0;i<wrow;i++)
 		{
-			constraint=A+LTCI[t][j]*(deduct+1>=DEDUCTGRID-1)+wdis[i]-M[t][j];
-			
+		constraint=A+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )+wdis[i]-M[t][j];
 
-			if(para.Mcaid==1 &&  constraint < (Cbar2+Wbcar) && constraint-wdis[i]/(1+r) < Cbar2 && j==1)
-			{
+						if(para.Mcaid==1 &&  constraint < (Cbar2+Wbcar) && constraint-wdis[i]/(1+r) < Cbar2 && j==1)
+						{
 
-				if (wdis[i]/(1+r) > Wbcar) wextra = wdis[i]/(1+r) -Wbcar;
-				else wextra=0;
-				for(k=0;k<wrow;k++)
-				{
+							if (wdis[i]/(1+r) > Wbcar) wextra = wdis[i]/(1+r) -Wbcar;
+							else wextra=0;
+							for(k=0;k<wrow;k++)
+							{
 
-					lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar2-wextra;
-					if(lcp->c[deduct][k]>0)lcp->zeroind[deduct][k]=0;else {lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
-				}
+								lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar2-wextra;
+								if(lcp->c[deduct][k]>0)lcp->zeroind[deduct][k]=0;else {lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
+							}
 
-				lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+1>=DEDUCTGRID-1)+r*wdis[i]/(1+r) -Cbar2);
-				if(deduct+1>=DEDUCTGRID-1)lcp->insurance[j][deduct][i] = LTCI[t][j];
+							lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )+r*wdis[i]/(1+r) -Cbar2);
+							if(deduct+(j>0) > deductgrid-2)lcp->insurance[j][deduct][i] = LTCI[t][j];
 
-			}else if(para.Mcaid==1 &&  constraint < (Cbar+Wbcar) &&  constraint-wdis[i]/(1+r)< Cbar && j>1 )
-			{
+						}else if(para.Mcaid==1 &&  constraint < (Cbar+Wbcar) &&  constraint-wdis[i]/(1+r)< Cbar && j>1 )
+						{
 
-				if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
-				else wextra=0;
-
-
-				if(deduct+1>=DEDUCTGRID-1)lcp->insurance[j][deduct][i] = LTCI[t][j];
-				lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+1>=DEDUCTGRID-1)+r*wdis[i]/(1+r) -Cbar);
-
-				for(k=0;k<wrow;k++)
-				{
-
-					lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar-wextra;
-					if(lcp->c[deduct][k]>0) lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
-				}
+							if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
+							else wextra=0;
 
 
-			}else { // not on medicaid  // LTCI pay for insurance
+							lcp->Medicaid[j][deduct][i]= M[t][j]-wextra-(A+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )+r*wdis[i]/(1+r) -Cbar2);
+							if(deduct+(j>0) > deductgrid-2)lcp->insurance[j][deduct][i] = LTCI[t][j];
 
-				for(k=0;k<wrow;k++)
-				{
-					lcp->c[deduct][k]=wdis[i]-wdis[k]/(1+r) +A +LTCI[t][j]*(j==0 ||(deduct+1>=DEDUCTGRID-1))-M[t][j];
-					if(lcp->c[deduct][k]>0 && wdis[i]+A-M[t][j]+LTCI[t][j]*(j==0 ||(deduct+1>=DEDUCTGRID-1)) -lcp->c[deduct][k]>=para.eps)lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
-				}
+							for(k=0;k<wrow;k++)
+							{
 
-				lcp->Medicaid[j][deduct][i]=0;
-				if (j>=1) lcp->insurance[j][deduct][i]=LTCI[t][j]*(deduct+1>=DEDUCTGRID-1);
+								lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar-wextra;
+								if(lcp->c[deduct][k]>0) lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
+							}
 
-			}
+
+						}else { // not on medicaid  // LTCI pay for insurance
+
+							for(k=0;k<wrow;k++)
+							{
+								lcp->c[deduct][k]=wdis[i]-wdis[k]/(1+r) +A +LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )-M[t][j];
+								if(lcp->c[deduct][k]>0 && wdis[i]+A-M[t][j]+LTCI[t][j]*(deduct+(j>0)>deductgrid-2)+LTCI[t][0]*(deduct+(j>0) <= deductgrid-2 )-lcp->c[deduct][k]>=0)lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
+							}
+
+							lcp->Medicaid[j][deduct][i]=0;
+							if (j>=1) lcp->insurance[j][deduct][i]=LTCI[t][j]*(deduct+(j>0)>deductgrid-2);
 
 
 
-		 /* Calculate value function for each combination of C(t) and W(t+1), given 
-         that you came into this period with w(t) = wdis(i), and health status j */;
-         
-         /* Note, the only reason it is necessary to do the following if-then statements is
-         if we one uses state dependent utility.  */
+						}
 
 
-			switch(j){
-			case 0: { consplus=0;phi=para.phi_hc; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi);  break;}
-			case 1: {  consplus=0;phi=para.phi_alf; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi); break;}
-					//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
-					//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
-			case 2: { consplus=para.Food;phi=para.phi_nh; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi);break; }
 
-					//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
-					//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
-			case 3: { consplus=para.Food;phi=para.phi_nh; fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi); break;}
+						/* Calculate value function for each combination of C(t) and W(t+1), given 
+						that you came into this period with w(t) = wdis(i), and health status j */;
 
-			}
+						/* Note, the only reason it is necessary to do the following if-then statements is
+						if we one uses state dependent utility.  */
+
+
+						switch(j){
+						case 0: { consplus=0;phi=para.phi_hc; break;}
+						case 1: {  consplus=0;phi=para.phi_alf;  break;}
+								//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
+								//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
+						case 2: { consplus=para.Food;phi=para.phi_nh; break; }
+
+								//if(stateFlag==1){ consplus=para.qual_alf*para.beta*HC0[t]; fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999) ;}
+								//	else {consplus=para.beta*HC0[t];  fn_util(c,OUTutil,para.crra,consplus); for(i=0;i<wrow;i++) VV[i][j]=para.phi_alf*OUTutil[i] +zeroind[i]*(-9999); }}
+						case 3: { consplus=para.Food;phi=para.phi_nh;break;}
+
+						}
+						fn_util(lcp->c[deduct],lcp->zeroind[deduct],lcp->VV[j][deduct],para.crra,consplus,phi);
+
 
 			
 			/* Then, regardless of health status, we then have to add in the value of 
@@ -1402,7 +1407,7 @@ void calcModel( int flagLTCI ){
 		/* This gives you utility as of period 1.  
 	 Now go back to period 0 for healthy person. */
 
-	for(deduct=0;deduct<DEDUCTGRID;deduct++)
+	for(deduct=0;deduct<deductgrid;deduct++)
 	for (i=0;i<wrow;i++)
 	{
 		lcp->Vstar[deduct][i]=(1/(1+para.rho)) * ( q[0][0]*lcp->V[0][deduct][i]
@@ -1516,6 +1521,7 @@ void calcModel2( int flagLTCI ){
 
 	double A;
 	double Medicalstar;
+	double Medtemp;
 	double wequiv;
 	
 	double Medical[TN][5];
@@ -1651,7 +1657,7 @@ void calcModel2( int flagLTCI ){
 					if(lcp->c[k]>0)lcp->zeroind[k]=0;else {lcp->c[k]=0.0001;lcp->zeroind[k]=1;}
 				}
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2));
 				lcp->insurance[j][i] = LTCI[t][j];
 
 			}else if(para.Mcaid==1 &&  A+LTCI[t][j]+wdis[i]-M[t][j] < (Cbar+Wbcar) && A+LTCI[t][j]+r*wdis[i]/(1+r)-M[t][j] < Cbar && j>1 )
@@ -1660,7 +1666,7 @@ void calcModel2( int flagLTCI ){
 				if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
 				else wextra=0;
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar));
 				lcp->insurance[j][i] = LTCI[t][j];
 				
 				for(k=0;k<wrow;k++)
@@ -1775,7 +1781,7 @@ void calcModel2( int flagLTCI ){
 					if(lcp->c[k]> 0) lcp->zeroind[k]=0;else {lcp->c[k]=0.0001;lcp->zeroind[k]=1;}
 				}
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2));
 				lcp->insurance[j][i] = LTCI[t][j];
 
 			}else if(para.Mcaid==1 &&  A+LTCI[t][j]+wdis[i]-M[t][j] < (Cbar+Wbcar) && A+LTCI[t][j]+r*wdis[i]/(1+r)-M[t][j] < Cbar && j>1 )
@@ -1784,7 +1790,7 @@ void calcModel2( int flagLTCI ){
 				if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
 				else wextra=0;
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar));
 				lcp->insurance[j][i] = LTCI[t][j];
 
 				for(k=0;k<wrow;k++)
@@ -1947,9 +1953,9 @@ void calcModel2( int flagLTCI ){
 
 		Vr=0;
 
-		for (i=0;i<para.wrow;i++) if(Digram->Vstar[0]> Digram->VstarNI[i]) Vr=Vr+1;
+		for (i=0;i<wrow;i++) if(Digram->Vstar[0]> Digram->VstarNI[i]) Vr=Vr+1;
 
-		if(Vr==para.wrow) {cout<<"Grid not big enough!"<<endl;wequiv=-99999;}
+		if(Vr==wrow) {cout<<"Grid not big enough!"<<endl;wequiv=-99999;}
 		else if(Vr==0){cout<<"Vr==0:  LTCI is worth than losing all financial wealth."<<endl;	wequiv=para.Minf;}
 		else if( Digram->VstarNI[Vr]>=Digram->Vstar[0] && Digram->Vstar[0]>=Digram->VstarNI[Vr-1])
 		{
@@ -2090,7 +2096,7 @@ void simulate(){
 
 	//initial wealth:
 	W0=para.W0;
-	for (i=110;i<para.wrow;i++) if(wdis[i]>=W0){iniW=i;break;}
+	for (i=110;i<wrow;i++) if(wdis[i]>=W0){iniW=i;break;}
 	
 
 	sbuffer = malloc( sizeof(SIMULATE));
@@ -2298,7 +2304,7 @@ void willtopay(int gender){
 
 
 	//for(wealthpercentil=3;wealthpercentil<10;wealthpercentil++)
-	wealthpercentil=8;
+	wealthpercentil=9;
 	{
 		time_began=time(NULL);
 		/*calculate preparation*/
@@ -2336,7 +2342,7 @@ void willtopay(int gender){
 
  			deduflag=1;
 			calcPrep(gender);
-			gridsetup(1);
+			gridsetup(0);
 			calcModel(1);
 
 			deduflag=0;	
