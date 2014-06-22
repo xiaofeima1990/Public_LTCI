@@ -1,0 +1,41 @@
+%% homework for OLS
+clear
+clc
+
+r=load('rate.txt');
+
+n=length(r);
+% OLS AR(p)
+Beta=zeros(5,6);
+X=zeros(length(r),6);
+X(:,1)=1;
+for i=1:5
+X(1:end,i+1)=r(i:end);
+X=X(1:end-1,:);
+Y=r(i+1:end);
+b=(X(:,1:i+1)'*X(:,1:i+1))^(-1)*(X(:,1:i+1)'*Y);
+Beta(i,1:i+1)=b';
+
+initial=ones(1,i+2);
+f_MLE=@(param)(sum(  (0.5/param(i+2))*((Y-X(:,1:i+1)*param(1:i+1)').^2)...
+                    +  0.5*log(param(i+2))  +0.5*log(2*pi)  )); 
+options=optimset('maxfunevals',5800,'maxiter',7000);
+[param,fval]=fminsearch(f_MLE,initial,options);
+result_MLE(i,1:i+2)=param;
+aic_mle=2*fval+2*i;
+bic_mle=2*fval+i*log(size(X,1));
+AIC_BIC(i,:)=[aic_mle,bic_mle,fval];
+
+end
+disp('OLS result')
+disp('the parameter from AR(1) to AR(5)')
+Beta
+disp('MLE result')
+disp('the parameter from AR(1) to AR(5)')
+disp('last element in each row is the coefficient')
+result_MLE
+
+disp('AIC BIC result ')
+AIC_BIC(:,1:2)
+disp('AIC BIC comparsion')
+min(AIC_BIC)
