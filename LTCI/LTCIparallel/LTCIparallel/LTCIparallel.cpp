@@ -147,11 +147,16 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 
 
 
-	//calculate actuarially fair premium
-	if (priflag==1)
-	{
-		if (deductgrid==1){
-			for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
+	//calculate actuarially fair premium	
+		if (priflag==1)
+		{
+			if (deductgrid==1)
+				AFP=Preimum[0][gender];
+			else
+				AFP=Preimum[deductgrid/2 -1][gender];
+
+		}else
+		{	for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
 			for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct.B[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
 
 			scost=0; sben=0;
@@ -162,39 +167,27 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 
 		}
 
-		else
-			AFP=Preimum[deductgrid/2 -1][gender];
-
-	
-
-	
 
 
-	actfprem=AFP;
 
-	for(i=0;i<TN;i++) for(j=0;j<5;j++) CalcStruct.P[i][j]=(CalcStruct.P[i][j] / para.premium) *(AFP / para.MW);
+		actfprem=AFP;
 
+		for(i=0;i<TN;i++) for(j=0;j<5;j++) CalcStruct.P[i][j]=(CalcStruct.P[i][j] / para.premium) *(AFP / para.MW);
 
-	}else{
-		AFP=Preimum[0][gender];
-		memset(&CalcStruct.P,0,sizeof(double [TN][5]));
+		//calculate monthly annuity amount A
+		Atemp=0;
+		for(i=0;i<TN;i++) Atemp=Atemp+ (1-CalcStruct.Prob[i+1][4]) / rfactor[i];
 
-	}
+		CalcStruct.A = (CalcStruct.alpha/(1-CalcStruct.alpha)) *CalcStruct.W0 / Atemp;
 
-	//calculate monthly annuity amount A
-	Atemp=0;
-	for(i=0;i<TN;i++) Atemp=Atemp+ (1-CalcStruct.Prob[i+1][4]) / rfactor[i];
+		/* Create LTCIown, a matrix that is tn rows x 5 states that is the net payment    */
+		/* to the policy holder.  Will be equal to -P when healthy, equal to benefit when */
+		/* receiving benefit and premium is waived, and equal to B-P when receiving 	  */
+		/* benefit but policy is not waived.						                      */
+		/* LTCInone is a matrix of zeros of same size as LTCIown to be used when the 	  */                                         
+		/* individual does not own insurance						                      */
 
-	CalcStruct.A = (CalcStruct.alpha/(1-CalcStruct.alpha)) *CalcStruct.W0 / Atemp;
-
-	/* Create LTCIown, a matrix that is tn rows x 5 states that is the net payment    */
-	/* to the policy holder.  Will be equal to -P when healthy, equal to benefit when */
-	/* receiving benefit and premium is waived, and equal to B-P when receiving 	  */
-	/* benefit but policy is not waived.						                      */
-	/* LTCInone is a matrix of zeros of same size as LTCIown to be used when the 	  */                                         
-	/* individual does not own insurance						                      */
-
-	for(i=0;i<TN;i++) for(j=0;j<5;j++) CalcStruct.LTCIown[i][j] = CalcStruct.B[i][j]- CalcStruct.P[i][j];
+		for(i=0;i<TN;i++) for(j=0;j<5;j++) CalcStruct.LTCIown[i][j] = CalcStruct.B[i][j]- CalcStruct.P[i][j];
 
 }
 
