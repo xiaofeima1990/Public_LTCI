@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿生成启动时间为 2014/6/10 12:28:35。
      1>项目“E:\myExp\gitHub\research\LTCI\LTCImodelII\LTCImodelII\LTCImodelII.vcxproj”在节点 2 上(build 个目标)。
+=======
+﻿生成启动时间为 2014/6/20 15:27:02。
+     1>项目“E:\guoxuanma\research\LTCI\LTCImodelII\LTCImodelII\LTCImodelII.vcxproj”在节点 2 上(build 个目标)。
+>>>>>>> be175d0163651bf316ad3b23d38f9260bf606af7
      1>InitializeBuildStatus:
          正在创建“x64\Debug\LTCImodelII.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
@@ -86,4 +91,8 @@
 
 生成成功。
 
+<<<<<<< HEAD
 已用时间 00:00:01.97
+=======
+已用时间 00:00:00.04
+>>>>>>> be175d0163651bf316ad3b23d38f9260bf606af7

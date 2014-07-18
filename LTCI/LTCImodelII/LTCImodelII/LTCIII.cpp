@@ -2,9 +2,9 @@
 
 
 #define TN 480
-#define MAXGRID 4384
+#define MAXGRID 6087
 //#define DEDUCTGRID 19
-#define DEDUCTGRID 1
+#define DEDUCTGRID 8
 #define NSIMUL		50000
 /************************************************************************/
 /* a test for my suppose only two indexes for in period and out period 
@@ -1521,6 +1521,7 @@ void calcModel2( int flagLTCI ){
 
 	double A;
 	double Medicalstar;
+	double Medtemp;
 	double wequiv;
 	
 	double Medical[TN][5];
@@ -1656,7 +1657,7 @@ void calcModel2( int flagLTCI ){
 					if(lcp->c[k]>0)lcp->zeroind[k]=0;else {lcp->c[k]=0.0001;lcp->zeroind[k]=1;}
 				}
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2));
 				lcp->insurance[j][i] = LTCI[t][j];
 
 			}else if(para.Mcaid==1 &&  A+LTCI[t][j]+wdis[i]-M[t][j] < (Cbar+Wbcar) && A+LTCI[t][j]+r*wdis[i]/(1+r)-M[t][j] < Cbar && j>1 )
@@ -1665,7 +1666,7 @@ void calcModel2( int flagLTCI ){
 				if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
 				else wextra=0;
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar));
 				lcp->insurance[j][i] = LTCI[t][j];
 				
 				for(k=0;k<wrow;k++)
@@ -1780,7 +1781,7 @@ void calcModel2( int flagLTCI ){
 					if(lcp->c[k]> 0) lcp->zeroind[k]=0;else {lcp->c[k]=0.0001;lcp->zeroind[k]=1;}
 				}
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar2));
 				lcp->insurance[j][i] = LTCI[t][j];
 
 			}else if(para.Mcaid==1 &&  A+LTCI[t][j]+wdis[i]-M[t][j] < (Cbar+Wbcar) && A+LTCI[t][j]+r*wdis[i]/(1+r)-M[t][j] < Cbar && j>1 )
@@ -1789,7 +1790,7 @@ void calcModel2( int flagLTCI ){
 				if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
 				else wextra=0;
 
-				lcp->Medicaid[j][i]= M[t][j]-wextra-(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar);
+				lcp->Medicaid[j][i]= M[t][j]-wextra-min((double)0,(double)(A+LTCI[t][j]+r*wdis[i]/(1+r) -Cbar));
 				lcp->insurance[j][i] = LTCI[t][j];
 
 				for(k=0;k<wrow;k++)
