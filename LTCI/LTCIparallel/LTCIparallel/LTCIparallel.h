@@ -15,28 +15,14 @@ using namespace Concurrency;
 
   
 #define TN 480
-#define MAXGRID 7474
+#define MAXGRID 2020
 #define WEALTHPERCENTIL 10
-#define DEDUCTGRID 8
+#define DEDUCTGRID 1
 #define NSIMUL		10000
 
-#define BBEN 4.740   
-// 158*30 4740 
-// 100*30 3000
-#define NHAMT (78.11/12)
-//78110/(12*1000) 
-//4290/1000
-#define ALFAMT 3.477
-//2159
-//3477
-#define CONLIMIT 0.644
-//644
-//515
 
-#define BINF    0.05
-#define MWCOUNT 1
 //market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
-#define START 7
+#define START 0
 
 
 

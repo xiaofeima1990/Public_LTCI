@@ -1,32 +1,12 @@
-﻿生成启动时间为 2014/6/25 15:08:27。
+﻿生成启动时间为 2014/7/19 19:48:00。
      1>项目“E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“x64\Debug\LTCIparallel.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt LTCIparallel.cpp
-         LTCIparallel.cpp
-     1>LTCIparallel.cpp(64): warning C4101: “wrow”: 未引用的局部变量
-     1>LTCIparallel.cpp(63): warning C4101: “WW”: 未引用的局部变量
-     1>LTCIparallel.cpp(294): warning C4101: “p”: 未引用的局部变量
-     1>LTCIparallel.cpp(294): warning C4101: “l”: 未引用的局部变量
-     1>LTCIparallel.cpp(996): warning C4101: “N”: 未引用的局部变量
-     1>LTCIparallel.cpp(990): warning C4101: “k”: 未引用的局部变量
-     1>LTCIparallel.cpp(1191): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\time.inl(112) : 参见“localtime”的声明
-     1>LTCIparallel.cpp(1180): warning C4101: “i”: 未引用的局部变量
-     1>LTCIparallel.cpp(1180): warning C4101: “j”: 未引用的局部变量
-     1>LTCIparallel.cpp(1247): warning C4101: “time_began”: 未引用的局部变量
-     1>LTCIparallel.cpp(1290): warning C4101: “k”: 未引用的局部变量
-     1>LTCIparallel.cpp(1290): warning C4101: “j”: 未引用的局部变量
-     1>LTCIparallel.cpp(1319): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\time.inl(112) : 参见“localtime”的声明
+         所有输出均为最新。
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\LTCIparallel.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.pdb" /HEAP:"200009600","200009600" /STACK:"200009600","200009600" /LARGEADDRESSAWARE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.lib" /MACHINE:X64 x64\Debug\LTCIparallel.obj
-         x64\Debug\main.obj
-         LINK : 没有找到 E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe 或上一个增量链接没有生成它；正在执行完全链接
+         所有输出均为最新。
          LTCIparallel.vcxproj -> E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe;#1" /manifest x64\Debug\LTCIparallel.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“x64\Debug\LTCIparallel.unsuccessfulbuild”。
          正在对“x64\Debug\LTCIparallel.lastbuildstate”执行 Touch 任务。
@@ -34,4 +14,4 @@
 
 生成成功。
 
-已用时间 00:00:02.27
+已用时间 00:00:00.04

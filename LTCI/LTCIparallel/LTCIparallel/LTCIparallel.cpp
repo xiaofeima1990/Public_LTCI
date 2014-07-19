@@ -202,7 +202,7 @@ void Parallel_LTCI::gridsetup(int flag, int wealthpercentile){
 
 
 	X=1000;
-	broden=3;
+	broden=1;
 	griddense=1.0/broden;
 
 
