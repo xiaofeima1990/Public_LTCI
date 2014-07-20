@@ -17,7 +17,7 @@ using namespace Concurrency;
 #define TN 480
 #define MAXGRID 2020
 #define WEALTHPERCENTIL 10
-#define DEDUCTGRID 1
+#define DEDUCTGRID 5
 #define NSIMUL		10000
 
 

@@ -7,16 +7,16 @@ extern int    healthstate[NSIMUL][TN];
 extern double q[TN+12][25];
 
 static double Preimum[10][2]={   
-	0.454813049,	0.20096996,
-	0.439435863,	0.185611818,
-	0.417177805,	0.171281873,
-	0.396360788,	0.158439056,
-	0.376949484,	0.146653683,
-	0.358820655,	0.135746975,
-	0.34173364,	    0.125675334,
-	0.32572715,	    0.116503167,
-	0.310722823,	0.108132752,
-	0.296530096,	0.100434849
+	0.162322821033513,   0.073874174822684,
+	0.154994520734275,   0.073711243825464,
+	0.152944581781425,   0.067285400764399,
+	0.147071938552908,   0.067896435428286,
+	0.145690799334747,   0.064174922538671,
+	0.138761369184279,   0.062224985684947,
+	0.134683986131120,   0.061388416283990,
+	0.131488381673699,   0.058189010158005,
+	0.128306756916874,   0.055619773804933,
+	0.127918649067460,   0.053385302639523
 
 };
 
@@ -160,7 +160,7 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 
 			AFP = ( sben / scost)*para.premium;}
 			else
-				AFP=Preimum[deductgrid/2 -1][gender];
+				AFP=Preimum[deductgrid-1][gender];
 
 		}else
 		{	for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
@@ -641,20 +641,26 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 						in any of 5 states.  */
 
 						/* for the deductile situation we need some adjust*/
+						//如果当期j=0健康，那么下一期肯定deductile计算清零 deduct =0
 						for(k=0;k<CalcStruct.wrow;k++)
-							if(j==0||deduct==deductgrid-1)
+							if(j==0)
 								lcp->VV[j][deduct][k]=lcp->VV[j][deduct][k]+
-							 (1/(1+para.rho))*q[t+1][j*5  ]*lcp->V[0][deduct][k]
-							+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][deduct][k]
-							+(1/(1+para.rho))*q[t+1][j*5+2]*lcp->V[2][deduct][k]
-							+(1/(1+para.rho))*q[t+1][j*5+3]*lcp->V[3][deduct][k];
+							 (1/(1+para.rho))*q[t+1][j*5  ]*lcp->V[0][0][k]
+							+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][0][k]
+							+(1/(1+para.rho))*q[t+1][j*5+2]*lcp->V[2][0][k]
+							+(1/(1+para.rho))*q[t+1][j*5+3]*lcp->V[3][0][k];
 							else if(j>=1&&deduct<deductgrid-1)
 								lcp->VV[j][deduct][k]=lcp->VV[j][deduct][k]+
 							 (1/(1+para.rho))*q[t+1][j*5  ]*lcp->V[0][deduct+1][k]
 							+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][deduct+1][k]
 							+(1/(1+para.rho))*q[t+1][j*5+2]*lcp->V[2][deduct+1][k]
 							+(1/(1+para.rho))*q[t+1][j*5+3]*lcp->V[3][deduct+1][k];
-
+							else if(j>=1 && deduct>=deductgrid-1)
+								lcp->VV[j][deduct][k]=lcp->VV[j][deduct][k]+
+								(1/(1+para.rho))*q[t+1][j*5  ]*lcp->V[0][deduct][k]
+							+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][deduct][k]
+							+(1/(1+para.rho))*q[t+1][j*5+2]*lcp->V[2][deduct][k]
+							+(1/(1+para.rho))*q[t+1][j*5+3]*lcp->V[3][deduct][k];
 
 
 							//find the maximized VV Vmax Astream Cstream
@@ -670,12 +676,12 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 							}
 
 
-							if(j==0||deduct==deductgrid-1)
+							if(j==0)
 								lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  (1/(1+r))*( 
-							 q[t+1][j*5+0]*lcp->Medicaid2[0][deduct][tempIndex]
-							+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct][tempIndex]
-							+q[t+1][j*5+2]*lcp->Medicaid2[2][deduct][tempIndex]
-							+q[t+1][j*5+3]*lcp->Medicaid2[3][deduct][tempIndex]);
+							 q[t+1][j*5+0]*lcp->Medicaid2[0][0][tempIndex]
+							+q[t+1][j*5+1]*lcp->Medicaid2[1][0][tempIndex]
+							+q[t+1][j*5+2]*lcp->Medicaid2[2][0][tempIndex]
+							+q[t+1][j*5+3]*lcp->Medicaid2[3][0][tempIndex]);
 
 							else if(j>=1&&deduct<deductgrid-1)
 								lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  (1/(1+r))*( 
@@ -683,15 +689,22 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 							+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct+1][tempIndex]
 							+q[t+1][j*5+2]*lcp->Medicaid2[2][deduct+1][tempIndex]
 							+q[t+1][j*5+3]*lcp->Medicaid2[3][deduct+1][tempIndex]);
+							else if(j>=0 && deduct==deductgrid-1)
+								lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  (1/(1+r))*( 
+								q[t+1][j*5+0]*lcp->Medicaid2[0][deduct][tempIndex]
+							+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct][tempIndex]
+							+q[t+1][j*5+2]*lcp->Medicaid2[2][deduct][tempIndex]
+							+q[t+1][j*5+3]*lcp->Medicaid2[3][deduct][tempIndex]);
 
 
 
-							if(j==0||deduct==deductgrid-1)
+
+							if(j==0)
 								lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + (1/(1+r))*(   
-							 q[t+1][j*5+0]*lcp->insurance2[0][deduct][tempIndex]
-							+q[t+1][j*5+1]*lcp->insurance2[1][deduct][tempIndex]
-							+q[t+1][j*5+2]*lcp->insurance2[2][deduct][tempIndex]
-							+q[t+1][j*5+3]*lcp->insurance2[3][deduct][tempIndex]);
+							 q[t+1][j*5+0]*lcp->insurance2[0][0][tempIndex]
+							+q[t+1][j*5+1]*lcp->insurance2[1][0][tempIndex]
+							+q[t+1][j*5+2]*lcp->insurance2[2][0][tempIndex]
+							+q[t+1][j*5+3]*lcp->insurance2[3][0][tempIndex]);
 
 							else if(j>=1&&deduct<deductgrid-1)
 								lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + (1/(1+r))*(   
@@ -700,7 +713,12 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 							+q[t+1][j*5+2]*lcp->insurance2[2][deduct+1][tempIndex]
 							+q[t+1][j*5+3]*lcp->insurance2[3][deduct+1][tempIndex]);
 
-
+							else if(j>=0 && deduct==deductgrid-1)
+								lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + (1/(1+r))*(   
+								q[t+1][j*5+0]*lcp->insurance2[0][deduct][tempIndex]
+							+q[t+1][j*5+1]*lcp->insurance2[1][deduct][tempIndex]
+							+q[t+1][j*5+2]*lcp->insurance2[2][deduct][tempIndex]
+							+q[t+1][j*5+3]*lcp->insurance2[3][deduct][tempIndex]);
 
 
 							CalcStruct.Cstream[deduct][t][j][i]=lcp->c[deduct][tempIndex];
@@ -740,7 +758,6 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 								else wextra=0;
 								for(k=0;k<CalcStruct.wrow;k++)
 								{
-
 									lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar2-wextra;
 									if(lcp->c[deduct][k]>0)lcp->zeroind[deduct][k]=0;else {lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
 								}
@@ -762,7 +779,6 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 
 								for(k=0;k<CalcStruct.wrow;k++)
 								{
-
 									lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar-wextra;
 									if(lcp->c[deduct][k]>0) lcp->zeroind[deduct][k]=0;else{lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
 								}
@@ -805,7 +821,7 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 
 
 							for(k=0;k<CalcStruct.wrow;k++)
-								if(j==0||deduct==deductgrid-1)
+								if(j==0)
 									lcp->VV[j][deduct][k]=lcp->VV[j][deduct][k]+
 								 (1/(1+para.rho))*q[t+1][j*5  ]*lcp->V[0][deduct][k]
 								+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][deduct][k]
@@ -817,11 +833,15 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 								+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][deduct+1][k]
 								+(1/(1+para.rho))*q[t+1][j*5+2]*lcp->V[2][deduct+1][k]
 								+(1/(1+para.rho))*q[t+1][j*5+3]*lcp->V[3][deduct+1][k];
-
+								else if(j>=0 && deduct==deductgrid-1)
+									lcp->VV[j][deduct][k]=lcp->VV[j][deduct][k]+
+								(1/(1+para.rho))*q[t+1][j*5  ]*lcp->V[0][0][k]
+								+(1/(1+para.rho))*q[t+1][j*5+1]*lcp->V[1][0][k]
+								+(1/(1+para.rho))*q[t+1][j*5+2]*lcp->V[2][0][k]
+								+(1/(1+para.rho))*q[t+1][j*5+3]*lcp->V[3][0][k];
 
 
 								//find the maximized VV Vmax Astream Cstream
-
 								tempVMax=lcp->VV[j][deduct][0];
 								tempIndex=0;
 								for(k=0;k<CalcStruct.wrow;k++){		
@@ -833,32 +853,45 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 								}
 
 
-								if(j==0||deduct==deductgrid-1)
-									lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  (1/(1+r))*( q[t+1][j*5+0]*lcp->Medicaid2[0][deduct][tempIndex]
+								if(j==0)
+									lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] + 
+				     (1/(1+r))*( q[t+1][j*5+0]*lcp->Medicaid2[0][0][tempIndex]
+								+q[t+1][j*5+1]*lcp->Medicaid2[1][0][tempIndex]
+								+q[t+1][j*5+2]*lcp->Medicaid2[2][0][tempIndex]
+								+q[t+1][j*5+3]*lcp->Medicaid2[3][0][tempIndex]);
+
+								else if(j>=1&&deduct<deductgrid-1)
+									lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  
+					 (1/(1+r))*( q[t+1][j*5+0]*lcp->Medicaid2[0][deduct+1][tempIndex]
+								+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct+1][tempIndex]
+								+q[t+1][j*5+2]*lcp->Medicaid2[2][deduct+1][tempIndex]
+								+q[t+1][j*5+3]*lcp->Medicaid2[3][deduct+1][tempIndex]);
+								else if(j==0 && deduct==deductgrid-1)
+									lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] + 
+									(1/(1+r))*( q[t+1][j*5+0]*lcp->Medicaid2[0][deduct][tempIndex]
 								+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct][tempIndex]
 								+q[t+1][j*5+2]*lcp->Medicaid2[2][deduct][tempIndex]
 								+q[t+1][j*5+3]*lcp->Medicaid2[3][deduct][tempIndex]);
 
-								else if(j>=1&&deduct<deductgrid-1)
-									lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  (1/(1+r))*( q[t+1][j*5+0]*lcp->Medicaid2[0][deduct+1][tempIndex]
-								+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct+1][tempIndex]
-								+q[t+1][j*5+2]*lcp->Medicaid2[2][deduct+1][tempIndex]
-								+q[t+1][j*5+3]*lcp->Medicaid2[3][deduct+1][tempIndex]);
 
-
-
-								if(j==0||deduct==deductgrid-1)
-									lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + (1/(1+r))*(   q[t+1][j*5+0]*lcp->insurance2[0][deduct][tempIndex]
-								+q[t+1][j*5+1]*lcp->insurance2[1][deduct][tempIndex]
-								+q[t+1][j*5+2]*lcp->insurance2[2][deduct][tempIndex]
-								+q[t+1][j*5+3]*lcp->insurance2[3][deduct][tempIndex]);
+								if(j==0)
+									lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + 
+				      (1/(1+r))*(q[t+1][j*5+0]*lcp->insurance2[0][0][tempIndex]
+								+q[t+1][j*5+1]*lcp->insurance2[1][0][tempIndex]
+								+q[t+1][j*5+2]*lcp->insurance2[2][0][tempIndex]
+								+q[t+1][j*5+3]*lcp->insurance2[3][0][tempIndex]);
 
 								else if(j>=1&&deduct<deductgrid-1)
 									lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + (1/(1+r))*(   q[t+1][j*5+0]*lcp->insurance2[0][deduct+1][tempIndex]
 								+q[t+1][j*5+1]*lcp->insurance2[1][deduct+1][tempIndex]
 								+q[t+1][j*5+2]*lcp->insurance2[2][deduct+1][tempIndex]
 								+q[t+1][j*5+3]*lcp->insurance2[3][deduct+1][tempIndex]);
-
+								else if(j>=0 && deduct==deductgrid-1)
+									lcp->insurance[j][deduct][i]= lcp->insurance[j][deduct][i] + 
+					(1/(1+r))*(   q[t+1][j*5+0]*lcp->insurance2[0][deduct][tempIndex]
+								+q[t+1][j*5+1]*lcp->insurance2[1][deduct][tempIndex]
+								+q[t+1][j*5+2]*lcp->insurance2[2][deduct][tempIndex]
+								+q[t+1][j*5+3]*lcp->insurance2[3][deduct][tempIndex]);
 
 
 								CalcStruct.Cstream[deduct][t][j][i]=lcp->c[deduct][tempIndex];
@@ -892,14 +925,16 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 
 					//Vstar[i]=Vstar[i]+(1/(1+para.d))*(q[0][4]*fn_utilbeq(para.beq));
 
-					lcp->Mstar[deduct][i]=(1/(1+r))        * ( q[0][0]*lcp->Medicaid2[0][deduct][i]
+					lcp->Mstar[deduct][i]=(1/(1+r))*
+				   ( q[0][0]*lcp->Medicaid2[0][deduct][i]
 					+q[0][1]*lcp->Medicaid2[1][deduct][i]
 					+q[0][2]*lcp->Medicaid2[2][deduct][i]
 					+q[0][3]*lcp->Medicaid2[3][deduct][i]);
 
 					//mstar[i]=Mstar[i]+(1/(1+para.d))*(q[0][4]*fn_utilbeq(para.beq)); 
 
-					lcp->Istar[deduct][i]=(1/(1+r)) *( q[0][0]*lcp->insurance2[0][deduct][i]
+					lcp->Istar[deduct][i]=(1/(1+r)) *
+				   ( q[0][0]*lcp->insurance2[0][deduct][i]
 					+q[0][1]*lcp->insurance2[1][deduct][i]
 					+q[0][2]*lcp->insurance2[2][deduct][i]
 					+q[0][3]*lcp->insurance2[3][deduct][i]);

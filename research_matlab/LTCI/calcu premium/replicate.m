@@ -40,9 +40,7 @@ griddense=1/1; % If griddense smaller than 1, the larger grid size.
                   % @ Note that when gam=1, undefined.  So uses value 'approaching' 1 @;
                     gam=floor(gam);
 
-                    Food=644/X;                 % @ Food = SSI level used to parameterize food/housing benefit @ 
-              
-
+                    Food=515/X;                 % @ Food = SSI level used to parameterize food/housing benefit @ 
                         Mcaid=1;		            % @ =1 if there is a Medicaid program		@
 
                         medscale=1;                 % @ scaling variable used for sensitivity checks.  Typically set = 1 @;
@@ -50,7 +48,7 @@ griddense=1/1; % If griddense smaller than 1, the larger grid size.
 
                             Wbar=2000/X;	            % @ wealth excluded from Medicaid spend-down (base case is 2000/X)	@ 
                             Cbar=30/X;		            % @ min consumption provided if on Medicaid	@
-                            Cbar2=674/X;                % @ CBAR WHILE IN HOME CARE @;
+                            Cbar2=Food+Cbar;                % @ CBAR WHILE IN HOME CARE @;
 
                             Wbar=medscale*Wbar;
 
@@ -92,16 +90,27 @@ griddense=1/1; % If griddense smaller than 1, the larger grid size.
 
 
                                     Binf=0;                     % @ rate of nominal growth of benefits under LTCI policy  @;
-                                    Bben=4740/X;                % @ Monthly benefit from LTCI policy     		            @;
-                                   
+                                    Bben=3000/X;                % @ Monthly benefit from LTCI policy     		            @;
+%                                     Bben=4740/X;
 
+% 
+%                                         NHamt=78110/(12*X);      	        % @ Monthly cost of NH  $51480  @
+%                                         ALFamt=3477/X;              % @ Monthly cost of ALF $25908 per year  @
+% 
+%                                         HCnonrn=21/X;               % @ Hourly HC costs (non RN) @
+%                                         HCrn=43/X;                  % @ Hourly HC costs (RN)  @
+%                                         
+%                                         
+                                        NHamt=4.29;      	        % @ Monthly cost of NH  $51480  @
+                                        ALFamt=2.159;              % @ Monthly cost of ALF $25908 per year  @
 
-                                        NHamt=78110/(12*X);      	        % @ Monthly cost of NH  $51480  @
-                                        ALFamt=3477/X;              % @ Monthly cost of ALF $25908 per year  @
-
-                                        HCnonrn=21/X;               % @ Hourly HC costs (non RN) @
-                                        HCrn=43/X;                  % @ Hourly HC costs (RN)  @
-
+                                        HCnonrn=18/X;               % @ Hourly HC costs (non RN) @
+                                        HCrn=37/X;  
+                                        
+                                        
+                                        
+                                        
+                                        
                                         r=.03;			            % @ real interest rate				        @
                                         rho=.03;		            % @ discount rate for utility of consumption	@
                                         d=.03;			            % @ discount rate for utility of bequests		@
