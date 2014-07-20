@@ -64,28 +64,44 @@ void calcSetup(){
 
 	para.crra=3;
 
-	para.Food=(double)0.644;      //Food = SSI level used to parameterize food/housing benefit
-
+	/************************************************************************/
+	/* old parameter  food cbar NHamt ALFamt  Binf   MWcount                */
+	/************************************************************************/
+	para.Food=0.515;      //Food = SSI level used to parameterize food/housing benefit
 	para.Wbar=2;	      // @ wealth excluded from Medicaid spend-down (base case is 2000/X)	@ 
 	para.Cbar=0.03;		  // @ min consumption provided if on Medicaid	@
-	para.Cbar2=(double)0.674;        // @ CBAR WHILE IN HOME CARE @;
+	para.Cbar2=para.Food+para.Cbar;        // @ CBAR WHILE IN HOME CARE @;
 
-	para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare @
-
-
-
+	para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare 
 	//medical cost
-	para.NHamt=(double)78.11/12;      	       // % @ Monthly cost of NH  $51480  @
-	para.ALFamt=(double)3.477;              //% @ Monthly cost of ALF $25908 per year  @
+	para.NHamt=(double)4290.0/X;      	       // % @ Monthly cost of NH  $51480  @
+	para.ALFamt=(double)2159.0/X;              //% @ Monthly cost of ALF $25908 per year  @
+	para.HCnonrn=0.018;               // @ Hourly HC costs (non RN) @
+	para.HCrn=0.037;                  // @ Hourly HC costs (RN)  @
+	para.MWcount=0;					//market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
+	para.Binf=0;
+	para.Bben=(double)3000.0/X;
 
-	para.HCnonrn=0.021;               // @ Hourly HC costs (non RN) @
-	para.HCrn=0.043;                  // @ Hourly HC costs (RN)  @
+	/************************************************************************/
+	/* new  parameter  food cbar NHamt ALFamt  Binf   MWcount                */
+	/************************************************************************/
+	//para.Food=0.644;      //Food = SSI level used to parameterize food/housing benefit
+	//para.Wbar=2;	      // @ wealth excluded from Medicaid spend-down (base case is 2000/X)	@ 
+	//para.Cbar=0.03;		  // @ min consumption provided if on Medicaid	@
+	//para.Cbar2=para.Food+para.Cbar;        // @ CBAR WHILE IN HOME CARE @;
+
+	//para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare 
+	////medical cost
+	//para.NHamt=(double)78.11/12;      	       // % @ Monthly cost of NH  $51480  @
+	//para.ALFamt=(double)3.477;              //% @ Monthly cost of ALF $25908 per year  @
+	//para.HCnonrn=0.021;               // @ Hourly HC costs (non RN) @
+	//para.HCrn=0.043;                  // @ Hourly HC costs (RN)  @
+	//para.MWcount=0;					//market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
+	//para.Binf=(double)0.05;
+	//para.Bben=(double)4740.0/X;
 
 
-	para.MWcount=(int)1;					//market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
-
-	para.Binf=(double)0.05;
-	para.Bben=(double)4740.0/X;
+	/*-------------------------------------------*/
 
 
 
@@ -412,7 +428,7 @@ int main(){
 		offset =0;
 		Sstart=START;
 
-		Parallel_LTCI  *LTCI[3];
+		Parallel_LTCI  *LTCI[10];
 
 		
 		{
@@ -436,7 +452,7 @@ int main(){
 
 
 		}
-		wealth =wealth*224.937/172.192;
+		//wealth =wealth*224.937/172.192;
 
 
 		LTCI[int(wealthpercentile)-Sstart]=new Parallel_LTCI(wealthpercentile,gender,deductgrid,wealth,wx,grid,alpha);
@@ -467,41 +483,41 @@ int main(){
 
 		/*task for 1 to 4*/
 		
-	//	tasks.run([&gender,&LTCI,&offset](){
-	//		   // int wealthpercentile; 
-	//		for(int wealthpercentile=1;wealthpercentile<5;wealthpercentile++)
-	//			LTCI[wealthpercentile]->comput();
+		tasks.run([&gender,&LTCI,&offset](){
+			   // int wealthpercentile; 
+			for(int wealthpercentile=2;wealthpercentile<5;wealthpercentile++)
+				LTCI[wealthpercentile]->comput();
 
 
 
-	//	});
+		});
 
-	////	/*task for  5*/
-	//
-	//		tasks.run([&gender,&LTCI,&offset](){
-	//			int wealthpercentile=5-offset; 				
-	//			LTCI[wealthpercentile]->comput();
+	//	/*task for  5*/
+	
+			tasks.run([&gender,&LTCI,&offset](){
+				int wealthpercentile=5-offset; 				
+				LTCI[wealthpercentile]->comput();
 
-	//			});
+				});
 
-	//	 /*task for  6*/
-	//		tasks.run([&gender,&LTCI,&offset](){
-	//			int wealthpercentile=6-offset; 				
-	//			LTCI[wealthpercentile]->comput();
+		 /*task for  6*/
+			tasks.run([&gender,&LTCI,&offset](){
+				int wealthpercentile=6-offset; 				
+				LTCI[wealthpercentile]->comput();
 
-	//		});
+			});
 
 
 	//		/*task for 7*/
 		tasks.run([&gender,&LTCI,&offset](){
-			int wealthpercentile=7-7;
+			int wealthpercentile=7-offset;
 
 			LTCI[wealthpercentile]->comput();
 		});
 
 			/*task for 8*/
 			tasks.run([&gender,&LTCI,&offset](){
-				int wealthpercentile=8-7;
+				int wealthpercentile=8-offset;
 
 				LTCI[wealthpercentile]->comput();
 			});
@@ -509,7 +525,7 @@ int main(){
 
 			/*task for 8 to 9*/
 			tasks.run_and_wait([&gender,&LTCI,&offset](){
-				int wealthpercentile=9-7;			
+				int wealthpercentile=9-offset;			
 				LTCI[wealthpercentile]->comput();			
 
 			});
