@@ -7,16 +7,16 @@ extern int    healthstate[NSIMUL][TN];
 extern double q[TN+12][25];
 
 static double Preimum[10][2]={   
-	0.454813049,	0.20096996,
-	0.439435863,	0.185611818,
-	0.417177805,	0.171281873,
-	0.396360788,	0.158439056,
-	0.376949484,	0.146653683,
-	0.358820655,	0.135746975,
-	0.34173364,	    0.125675334,
-	0.32572715,	    0.116503167,
-	0.310722823,	0.108132752,
-	0.296530096,	0.100434849
+	0.162322821033513,   0.073874174822684,
+	0.154994520734275,   0.073711243825464,
+	0.152944581781425,   0.067285400764399,
+	0.147071938552908,   0.067896435428286,
+	0.145690799334747,   0.064174922538671,
+	0.138761369184279,   0.062224985684947,
+	0.134683986131120,   0.061388416283990,
+	0.131488381673699,   0.058189010158005,
+	0.128306756916874,   0.055619773804933,
+	0.127918649067460,   0.053385302639523
 
 };
 
@@ -160,7 +160,7 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 
 			AFP = ( sben / scost)*para.premium;}
 			else
-				AFP=Preimum[deductgrid/2 -1][gender];
+				AFP=Preimum[deductgrid-1][gender];
 
 		}else
 		{	for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
@@ -641,6 +641,7 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 						in any of 5 states.  */
 
 						/* for the deductile situation we need some adjust*/
+						//如果当期j=0健康，那么下一期肯定deductile计算清零 deduct =0
 						for(k=0;k<CalcStruct.wrow;k++)
 							if(j==0||deduct==deductgrid-1)
 								lcp->VV[j][deduct][k]=lcp->VV[j][deduct][k]+
