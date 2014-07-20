@@ -74,13 +74,13 @@ void calcSetup(){
 
 	para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare 
 	//medical cost
-	para.NHamt=(double)4290.0/X;      	       // % @ Monthly cost of NH  $51480  @
-	para.ALFamt=(double)2159.0/X;              //% @ Monthly cost of ALF $25908 per year  @
+	para.NHamt=(double)4.29;      	       // % @ Monthly cost of NH  $51480  @
+	para.ALFamt=(double)2.159;              //% @ Monthly cost of ALF $25908 per year  @
 	para.HCnonrn=0.018;               // @ Hourly HC costs (non RN) @
 	para.HCrn=0.037;                  // @ Hourly HC costs (RN)  @
 	para.MWcount=0;					//market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
 	para.Binf=0;
-	para.Bben=(double)3000.0/X;
+	para.Bben=(double)3;
 
 	/************************************************************************/
 	/* new  parameter  food cbar NHamt ALFamt  Binf   MWcount                */

@@ -1,17 +1,69 @@
-﻿生成启动时间为 2014/7/19 19:48:00。
-     1>项目“E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj”在节点 2 上(build 个目标)。
+﻿生成启动时间为 2014/7/20 9:26:11。
+     1>项目“E:\myExp\gitHub\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“x64\Debug\LTCIparallel.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         所有输出均为最新。
+         D:\系统软件\vs2010\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt LTCIparallel.cpp main.cpp
+         main.cpp
+     1>main.cpp(27): warning C4101: “i”: 未引用的局部变量
+     1>main.cpp(185): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>main.cpp(186): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>main.cpp(189): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>main.cpp(197): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\stdio.h(325) : 参见“sscanf”的声明
+     1>main.cpp(221): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>main.cpp(222): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>main.cpp(224): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>main.cpp(232): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\stdio.h(325) : 参见“sscanf”的声明
+     1>main.cpp(139): warning C4101: “sim_p2”: 未引用的局部变量
+     1>main.cpp(140): warning C4101: “simtemp”: 未引用的局部变量
+     1>main.cpp(179): warning C4101: “infile3”: 未引用的局部变量
+     1>main.cpp(180): warning C4101: “inhandle”: 未引用的局部变量
+     1>main.cpp(139): warning C4101: “sim_p1”: 未引用的局部变量
+     1>main.cpp(148): warning C4101: “lama”: 未引用的局部变量
+     1>main.cpp(372): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\time.inl(112) : 参见“localtime”的声明
+     1>main.cpp(399): warning C4101: “time_end”: 未引用的局部变量
+     1>main.cpp(399): warning C4101: “time_began”: 未引用的局部变量
+     1>main.cpp(383): warning C4101: “l”: 未引用的局部变量
+     1>main.cpp(388): warning C4101: “temp_test”: 未引用的局部变量
+     1>main.cpp(383): warning C4101: “j”: 未引用的局部变量
+         LTCIparallel.cpp
+     1>LTCIparallel.cpp(64): warning C4101: “wrow”: 未引用的局部变量
+     1>LTCIparallel.cpp(63): warning C4101: “WW”: 未引用的局部变量
+     1>LTCIparallel.cpp(301): warning C4101: “p”: 未引用的局部变量
+     1>LTCIparallel.cpp(301): warning C4101: “l”: 未引用的局部变量
+     1>LTCIparallel.cpp(1002): warning C4101: “N”: 未引用的局部变量
+     1>LTCIparallel.cpp(996): warning C4101: “k”: 未引用的局部变量
+     1>LTCIparallel.cpp(1197): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\time.inl(112) : 参见“localtime”的声明
+     1>LTCIparallel.cpp(1186): warning C4101: “i”: 未引用的局部变量
+     1>LTCIparallel.cpp(1186): warning C4101: “j”: 未引用的局部变量
+     1>LTCIparallel.cpp(1253): warning C4101: “time_began”: 未引用的局部变量
+     1>LTCIparallel.cpp(1296): warning C4101: “k”: 未引用的局部变量
+     1>LTCIparallel.cpp(1296): warning C4101: “j”: 未引用的局部变量
+     1>LTCIparallel.cpp(1325): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 D:\系统软件\vs2010\VC\include\time.inl(112) : 参见“localtime”的声明
+         Generating Code...
        Link:
-         所有输出均为最新。
-         LTCIparallel.vcxproj -> E:\guoxuanma\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe
+         D:\系统软件\vs2010\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\myExp\gitHub\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\LTCIparallel.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\myExp\gitHub\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.pdb" /HEAP:"200009600","200009600" /STACK:"200009600","200009600" /LARGEADDRESSAWARE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\myExp\gitHub\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.lib" /MACHINE:X64 x64\Debug\LTCIparallel.obj
+         x64\Debug\main.obj
+         LINK : 没有找到 E:\myExp\gitHub\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe 或上一个增量链接没有生成它；正在执行完全链接
+         LTCIparallel.vcxproj -> E:\myExp\gitHub\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\myExp\gitHub\research\LTCI\LTCIparallel\x64\Debug\LTCIparallel.exe;#1" /manifest x64\Debug\LTCIparallel.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“x64\Debug\LTCIparallel.unsuccessfulbuild”。
          正在对“x64\Debug\LTCIparallel.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj”(build 个目标)的操作。
+     1>已完成生成项目“E:\myExp\gitHub\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj”(build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.04
+已用时间 00:00:05.09

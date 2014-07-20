@@ -151,7 +151,14 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 		if (priflag==1)
 		{
 			if (deductgrid==1)
-				AFP=Preimum[0][gender];
+			{for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
+			for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct.B[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
+
+			scost=0; sben=0;
+			for(i=0;i<TN;i++) scost=scost+cost[i][0];
+			for(i=0;i<TN;i++) for(j=0;j<5;j++) sben=sben+ben[i][j];
+
+			AFP = ( sben / scost)*para.premium;}
 			else
 				AFP=Preimum[deductgrid/2 -1][gender];
 
