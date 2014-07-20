@@ -424,8 +424,8 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 			for(deduct=0;deduct<deductgrid;deduct++)	
 				for(i=0;i<wrow;i++)
 				{
-
-					constraint=A+LTCIMM[t][j]*(deduct+(j>0)>deductgrid-2)+LTCIMM[t][0]*(deduct+(j>0) <= deductgrid-2 )+wdis[i]-M[t][j];
+					//当期病了算不算？？？ 感觉不应该算
+					constraint=A+LTCIMM[t][j]*(deduct+(j>0)>deductgrid-2)+LTCIMM[t][0]*(deduct+(j>0) <= deductgrid-2 )+wdis[i]-M[t][j];// 这个写法满足要求
 
 
 					/* Medicaid is defined so that (a) if Medicaid exists, and 
@@ -440,12 +440,10 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 					if(para.Mcaid==1 &&  constraint < (Cbar2+Wbcar) && constraint-wdis[i]/(1+r) < Cbar2 && j==1)
 					{
 
-						if (wdis[i]/(1+r) > Wbcar) wextra = wdis[i]/(1+r) -Wbcar;
-						else wextra=0;
+						wextra =max(double(wdis[i]/(1+r) -Wbcar),double(0));
 
 						for(k=0;k<wrow;k++)
 						{
-
 							lcp->c[deduct][k]=wdis[i]/(1+r) -wdis[k]/(1+r)+Cbar2-wextra;
 							if(lcp->c[deduct][k]>0)lcp->zeroind[deduct][k]=0;else {lcp->c[deduct][k]=0.0001;lcp->zeroind[deduct][k]=1;}
 						}
@@ -456,8 +454,7 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 					}else if(para.Mcaid==1 &&  constraint < (Cbar+Wbcar) &&  constraint-wdis[i]/(1+r)< Cbar && j>1 )
 					{
 
-						if (wdis[i]/(1+r) > Wbcar) wextra=wdis[i]/(1+r) -Wbcar;
-						else wextra=0;
+						wextra =max(double(wdis[i]/(1+r) -Wbcar),double(0));
 
 
 						if(deduct+(j>0)>deductgrid-2)lcp->insurance[j][deduct][i] = LTCIMM[t][j];
@@ -472,7 +469,7 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 						}
 
 
-					}else { // not on medicaid  // LTCI pay for insurance
+					}else { // not on medicaid  LTCI pay for insurance
 
 						for(k=0;k<CalcStruct.wrow;k++)
 						{
@@ -827,6 +824,8 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 										tempIndex=k;
 									}
 								}
+
+
 								if(j==0||deduct==deductgrid-1)
 									lcp->Medicaid[j][deduct][i] = lcp->Medicaid[j][deduct][i] +  (1/(1+r))*( q[t+1][j*5+0]*lcp->Medicaid2[0][deduct][tempIndex]
 								+q[t+1][j*5+1]*lcp->Medicaid2[1][deduct][tempIndex]
