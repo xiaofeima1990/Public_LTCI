@@ -243,24 +243,26 @@ void inputData(int gender){
 			fclose(infile2);
 		}
 
-	//if(gender==0)
-	//infile3 = fopen("healthstatef.txt","r");
-	//else
-	//infile3 = fopen("healthstatem.txt","r");
+		//random martrix
 
-	//if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
+		if(gender==0)
+			infile3 = fopen("healthstatef.txt","r");
+		else
+			infile3 = fopen("healthstatem.txt","r");
 
-	//for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
-	//	fgets(stringline,1000,infile3);
-	//	for(sim_p2=0;sim_p2<TN;sim_p2++){
-	//		sscanf(&stringline[sim_p2*2], "%d", &simtemp);
-	//		healthstate[sim_p1][sim_p2]=(int)simtemp;
-	//	
-	//	
-	//	}
+		if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
 
-	//}
-	//fclose(infile3);
+		for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
+			fgets(stringline,1000,infile3);
+			for(sim_p2=0;sim_p2<TN;sim_p2++){
+				sscanf(&stringline[sim_p2*2], "%d", &simtemp);
+				healthstate[sim_p1][sim_p2]=(int)simtemp;
+
+
+			}
+
+		}
+		fclose(infile3);
 
 
 
@@ -425,7 +427,7 @@ int main(){
 
 				
 		cur_time();
-		offset =5;
+		offset =3;
 		Sstart=START;
 
 		Parallel_LTCI  *LTCI[1];
@@ -491,21 +493,30 @@ int main(){
 
 
 	//	});
+		//	/*task for  4*/
+
+		tasks.run([&gender,&LTCI,&Sstart](){
+			int wealthpercentile=4-Sstart; 				
+			LTCI[wealthpercentile]->comput();
+
+		});
+
+
 
 	//	/*task for  5*/
 	
-			tasks.run_and_wait([&gender,&LTCI,&offset](){
-				int wealthpercentile=5-offset; 				
+			tasks.run([&gender,&LTCI,&Sstart](){
+				int wealthpercentile=5-Sstart; 				
 				LTCI[wealthpercentile]->comput();
 
 				});
 
-	//	 /*task for  6*/
-	//		tasks.run([&gender,&LTCI,&offset](){
-	//			int wealthpercentile=6-offset; 				
-	//			LTCI[wealthpercentile]->comput();
+		 /*task for  6*/
+			tasks.run_and_wait([&gender,&LTCI,&Sstart](){
+				int wealthpercentile=6-Sstart; 				
+				LTCI[wealthpercentile]->comput();
 
-	//		});
+			});
 
 
 	////		/*task for 7*/

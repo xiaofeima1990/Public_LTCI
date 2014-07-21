@@ -904,8 +904,6 @@ double calcModel(int protype, int flagLTCI ){
 
 	for(j=0;j<4;j++)
 	{
-
-
 		for(i=0;i<wrow;i++)
 		{
 			//memset(VV,0,sizeof(double [row][4]));
@@ -957,8 +955,6 @@ double calcModel(int protype, int flagLTCI ){
 				{
 					lcp->c[k]=wdis[i]-wdis[k]/(1+r) +A +LTCI[t][j]-M[t][j];
 					if(lcp->c[k]>0 && wdis[i]+A-M[t][j]+LTCI[t][j] -lcp->c[k]>=0)lcp->zeroind[k]=0;else{lcp->c[k]=0.0001;lcp->zeroind[k]=1;}
-
-
 				}
 
 				lcp->Medicaid[j][i]=0;
