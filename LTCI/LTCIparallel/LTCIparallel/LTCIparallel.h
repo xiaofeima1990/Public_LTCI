@@ -10,12 +10,13 @@
 #include <time.h>
 
 
+
 using namespace std;
 using namespace Concurrency;
 
   
 #define TN 480
-#define MAXGRID 2020
+#define MAXGRID 2050
 #define WEALTHPERCENTIL 10
 #define DEDUCTGRID 5
 #define NSIMUL		10000
