@@ -60,33 +60,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\female.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\female1.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\hcexp0fi65.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\hcexp0mi65.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\hcexp1fi65.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\hcexp1mi65.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\healthstate.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\healthstatef.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\healthstatem.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj" />
     <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj.filters" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj.user" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\male.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\male1.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\male2.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\qfi.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\qmi.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\qqfi.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\qqmi.txt" />
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\table.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.cpp" />
+    <ClCompile Include="..\..\LTCIparallel\LTCIparallel\LTCImedicare.cpp" />
     <ClCompile Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.h" />
+    <ClInclude Include="..\..\LTCIparallel\LTCIparallel\LTCImedicare.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
