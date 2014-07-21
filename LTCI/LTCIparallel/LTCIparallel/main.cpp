@@ -425,10 +425,10 @@ int main(){
 
 				
 		cur_time();
-		offset =0;
+		offset =5;
 		Sstart=START;
 
-		Parallel_LTCI  *LTCI[10];
+		Parallel_LTCI  *LTCI[1];
 
 		
 		{
@@ -436,7 +436,7 @@ int main(){
 
 		for(gender=1;gender<2;gender++){
 		// initilize the class of LTCI 
-		for(wealthpercentile=Sstart;wealthpercentile<10;wealthpercentile ++)
+		for(wealthpercentile=Sstart;wealthpercentile<10-offset;wealthpercentile ++)
 		{
 		switch (wealthpercentile){
 		case 0: wealth=40000;	alpha=0.98;	wx=0;		grid=20;	break;
@@ -483,52 +483,52 @@ int main(){
 
 		/*task for 1 to 4*/
 		
-		tasks.run([&gender,&LTCI,&offset](){
-			   // int wealthpercentile; 
-			for(int wealthpercentile=2;wealthpercentile<5;wealthpercentile++)
-				LTCI[wealthpercentile]->comput();
+	//	tasks.run([&gender,&LTCI,&offset](){
+	//		   // int wealthpercentile; 
+	//		for(int wealthpercentile=2;wealthpercentile<5;wealthpercentile++)
+	//			LTCI[wealthpercentile]->comput();
 
 
 
-		});
+	//	});
 
 	//	/*task for  5*/
 	
-			tasks.run([&gender,&LTCI,&offset](){
+			tasks.run_and_wait([&gender,&LTCI,&offset](){
 				int wealthpercentile=5-offset; 				
 				LTCI[wealthpercentile]->comput();
 
 				});
 
-		 /*task for  6*/
-			tasks.run([&gender,&LTCI,&offset](){
-				int wealthpercentile=6-offset; 				
-				LTCI[wealthpercentile]->comput();
+	//	 /*task for  6*/
+	//		tasks.run([&gender,&LTCI,&offset](){
+	//			int wealthpercentile=6-offset; 				
+	//			LTCI[wealthpercentile]->comput();
 
-			});
-
-
-	//		/*task for 7*/
-		tasks.run([&gender,&LTCI,&offset](){
-			int wealthpercentile=7-offset;
-
-			LTCI[wealthpercentile]->comput();
-		});
-
-			/*task for 8*/
-			tasks.run([&gender,&LTCI,&offset](){
-				int wealthpercentile=8-offset;
-
-				LTCI[wealthpercentile]->comput();
-			});
+	//		});
 
 
-			/*task for 8 to 9*/
-			tasks.run_and_wait([&gender,&LTCI,&offset](){
-				int wealthpercentile=9-offset;			
-				LTCI[wealthpercentile]->comput();			
+	////		/*task for 7*/
+	//	tasks.run([&gender,&LTCI,&offset](){
+	//		int wealthpercentile=7-offset;
 
-			});
+	//		LTCI[wealthpercentile]->comput();
+	//	});
+
+	//		/*task for 8*/
+	//		tasks.run([&gender,&LTCI,&offset](){
+	//			int wealthpercentile=8-offset;
+
+	//			LTCI[wealthpercentile]->comput();
+	//		});
+
+
+			///*task for 8 to 9*/
+			//tasks.run_and_wait([&gender,&LTCI,&offset](){
+			//	int wealthpercentile=9-offset;			
+			//	LTCI[wealthpercentile]->comput();			
+
+			//});
 
 
 		}

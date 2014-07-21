@@ -23,7 +23,7 @@ using namespace Concurrency;
 
 
 //market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
-#define START 0
+#define START 4
 
 
 
