@@ -1,4 +1,4 @@
-#include "LTCIparallel.h"
+#include "LTCImedicare.h"
 
 extern int    healthstate[NSIMUL][TN];
 extern double q[TN+12][25];
@@ -243,24 +243,26 @@ void inputData(int gender){
 			fclose(infile2);
 		}
 
-	//if(gender==0)
-	//infile3 = fopen("healthstatef.txt","r");
-	//else
-	//infile3 = fopen("healthstatem.txt","r");
+		//random martrix
 
-	//if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
+		if(gender==0)
+			infile3 = fopen("healthstatef.txt","r");
+		else
+			infile3 = fopen("healthstatem.txt","r");
 
-	//for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
-	//	fgets(stringline,1000,infile3);
-	//	for(sim_p2=0;sim_p2<TN;sim_p2++){
-	//		sscanf(&stringline[sim_p2*2], "%d", &simtemp);
-	//		healthstate[sim_p1][sim_p2]=(int)simtemp;
-	//	
-	//	
-	//	}
+		if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
 
-	//}
-	//fclose(infile3);
+		for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
+			fgets(stringline,1000,infile3);
+			for(sim_p2=0;sim_p2<TN;sim_p2++){
+				sscanf(&stringline[sim_p2*2], "%d", &simtemp);
+				healthstate[sim_p1][sim_p2]=(int)simtemp;
+
+
+			}
+
+		}
+		fclose(infile3);
 
 
 
@@ -358,7 +360,7 @@ extern void record_result(int wealthpercentile,Parallel_LTCI *LTCI){
 	record.Mstar[wealthpercentile]=LTCI->Digram.Mstar;
 	record.Istarown[wealthpercentile]=LTCI->Digram.Istar;
 	record.EPDVMedical[wealthpercentile]=LTCI->Digram.Medicalstar;
-
+	record.wequiv[wealthpercentile]=LTCI->Digram.wequiv;
 
 }
 
@@ -425,10 +427,10 @@ int main(){
 
 				
 		cur_time();
-		offset =5;
+		offset =0;
 		Sstart=START;
 
-		Parallel_LTCI  *LTCI[1];
+		Parallel_LTCI  *LTCI[7];
 
 		
 		{
@@ -483,82 +485,92 @@ int main(){
 
 		/*task for 1 to 4*/
 		
-	//	tasks.run([&gender,&LTCI,&offset](){
-	//		   // int wealthpercentile; 
-	//		for(int wealthpercentile=2;wealthpercentile<5;wealthpercentile++)
-	//			LTCI[wealthpercentile]->comput();
+		tasks.run([&gender,&LTCI,&offset,&Sstart](){
+			   // int wealthpercentile; 
+			for(int wealthpercentile=Sstart;wealthpercentile<5-offset;wealthpercentile++)
+				LTCI[wealthpercentile-Sstart]->comput();
 
 
 
-	//	});
+		});
+		////	/*task for  4*/
+
+		//tasks.run([&gender,&LTCI,&Sstart](){
+		//	int wealthpercentile=4-Sstart; 				
+		//	LTCI[wealthpercentile]->comput();
+
+		//});
+
+
 
 	//	/*task for  5*/
 	
-			tasks.run_and_wait([&gender,&LTCI,&offset](){
-				int wealthpercentile=5-offset; 				
+			tasks.run([&gender,&LTCI,&Sstart](){
+				int wealthpercentile=5-Sstart; 				
 				LTCI[wealthpercentile]->comput();
 
 				});
 
-	//	 /*task for  6*/
-	//		tasks.run([&gender,&LTCI,&offset](){
-	//			int wealthpercentile=6-offset; 				
-	//			LTCI[wealthpercentile]->comput();
+		 /*task for  6*/
+			tasks.run([&gender,&LTCI,&Sstart](){
+				int wealthpercentile=6-Sstart; 				
+				LTCI[wealthpercentile]->comput();
 
-	//		});
-
-
-	////		/*task for 7*/
-	//	tasks.run([&gender,&LTCI,&offset](){
-	//		int wealthpercentile=7-offset;
-
-	//		LTCI[wealthpercentile]->comput();
-	//	});
-
-	//		/*task for 8*/
-	//		tasks.run([&gender,&LTCI,&offset](){
-	//			int wealthpercentile=8-offset;
-
-	//			LTCI[wealthpercentile]->comput();
-	//		});
+			});
 
 
-			///*task for 8 to 9*/
-			//tasks.run_and_wait([&gender,&LTCI,&offset](){
-			//	int wealthpercentile=9-offset;			
-			//	LTCI[wealthpercentile]->comput();			
+	//		/*task for 7*/
+		tasks.run([&gender,&LTCI,&Sstart](){
+			int wealthpercentile=7-Sstart;
 
-			//});
+			LTCI[wealthpercentile]->comput();
+		});
+
+			/*task for 8*/
+			tasks.run([&gender,&LTCI,&Sstart](){
+				int wealthpercentile=8-Sstart;
+
+				LTCI[wealthpercentile]->comput();
+			});
+
+
+			/*task for  9*/
+			tasks.run_and_wait([&gender,&LTCI,&Sstart](){
+				int wealthpercentile=9-Sstart;			
+				LTCI[wealthpercentile]->comput();			
+
+			});
 
 
 		}
 		// output some variables
 
-		//if(para.MWcount==0){if (gender==0) para.MW=1.058; else para.MW=0.5;}
-		//else if(para.MWcount==1){if (gender==0) para.MW=0.6; else para.MW=0.3;}
-		//else if(para.MWcount==2){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
-		//else if(para.MWcount==3){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
-		//else if(para.MWcount==4){if (gender==0) para.MW=1; else para.MW=1;}
+		if(para.MWcount==0){if (gender==0) para.MW=1.058; else para.MW=0.5;}
+		else if(para.MWcount==1){if (gender==0) para.MW=0.6; else para.MW=0.3;}
+		else if(para.MWcount==2){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
+		else if(para.MWcount==3){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
+		else if(para.MWcount==4){if (gender==0) para.MW=1; else para.MW=1;}
 
-		//ofstream out(filename, ios::app);
-		//if (out.is_open())   
-		//{
-		//out<<"*********************************************************************"<<endl;
-		//out<<"deductile grid is :"<<deductgrid<<endl;
-		//for(i=1;i<10-offset;i++) record_result(i,LTCI[i]);
-		//out<<"10th to 90th "<<endl;
-		//for(i=1;i<10-offset;i++){
-		//out<<i<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
-		//out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
-		//out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
-		//out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
-		//out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
-		//out<<endl;
-		//}
-		//out<<"*********************************************************************"<<endl;
-		//out.close();  
+		ofstream out(filename, ios::app);
+		if (out.is_open())   
+		{
+			out<<"*********************************************************************"<<endl;
+			out<<"deductile grid is :"<<deductgrid<<endl;
+			for(i=0;i<10-offset-Sstart;i++) record_result(i,LTCI[i]);
+			out<<"10th to 90th "<<endl;
+			for(i=0;i<10-offset-Sstart;i++){
+				out<<i+Sstart<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
+				out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
+				out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
+				out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
+				out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
+				out<<record.wequiv[i]<<"\t";
+				out<<endl;
+			}
+			out<<"*********************************************************************"<<endl;
+			out.close();  
 
-		//}
+		}
 
 
 		for(i=0;i<10-offset-START;i++) delete LTCI[i];
