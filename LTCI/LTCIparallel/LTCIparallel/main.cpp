@@ -245,24 +245,24 @@ void inputData(int gender){
 
 		//random martrix
 
-		//if(gender==0)
-		//	infile3 = fopen("healthstatef.txt","r");
-		//else
-		//	infile3 = fopen("healthstatem.txt","r");
+		if(gender==0)
+			infile3 = fopen("healthstatef.txt","r");
+		else
+			infile3 = fopen("healthstatem.txt","r");
 
-		//if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
+		if(infile3 == NULL) {cout<<" File not found in "<<"healthstate.txt"<<endl; system("pause");}
 
-		//for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
-		//	fgets(stringline,1000,infile3);
-		//	for(sim_p2=0;sim_p2<TN;sim_p2++){
-		//		sscanf(&stringline[sim_p2*2], "%d", &simtemp);
-		//		healthstate[sim_p1][sim_p2]=(int)simtemp;
+		for(sim_p1=0;sim_p1<NSIMUL;sim_p1++){
+			fgets(stringline,1000,infile3);
+			for(sim_p2=0;sim_p2<TN;sim_p2++){
+				sscanf(&stringline[sim_p2*2], "%d", &simtemp);
+				healthstate[sim_p1][sim_p2]=(int)simtemp;
 
 
-		//	}
+			}
 
-		//}
-		//fclose(infile3);
+		}
+		fclose(infile3);
 
 
 
@@ -360,7 +360,7 @@ extern void record_result(int wealthpercentile,Parallel_LTCI *LTCI){
 	record.Mstar[wealthpercentile]=LTCI->Digram.Mstar;
 	record.Istarown[wealthpercentile]=LTCI->Digram.Istar;
 	record.EPDVMedical[wealthpercentile]=LTCI->Digram.Medicalstar;
-
+	record.wequiv[wealthpercentile]=LTCI->Digram.wequiv;
 
 }
 
@@ -545,31 +545,32 @@ int main(){
 		}
 		// output some variables
 
-		//if(para.MWcount==0){if (gender==0) para.MW=1.058; else para.MW=0.5;}
-		//else if(para.MWcount==1){if (gender==0) para.MW=0.6; else para.MW=0.3;}
-		//else if(para.MWcount==2){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
-		//else if(para.MWcount==3){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
-		//else if(para.MWcount==4){if (gender==0) para.MW=1; else para.MW=1;}
+		if(para.MWcount==0){if (gender==0) para.MW=1.058; else para.MW=0.5;}
+		else if(para.MWcount==1){if (gender==0) para.MW=0.6; else para.MW=0.3;}
+		else if(para.MWcount==2){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
+		else if(para.MWcount==3){if (gender==0) para.MW=1.358127; else para.MW=0.6418727;}
+		else if(para.MWcount==4){if (gender==0) para.MW=1; else para.MW=1;}
 
-		//ofstream out(filename, ios::app);
-		//if (out.is_open())   
-		//{
-		//out<<"*********************************************************************"<<endl;
-		//out<<"deductile grid is :"<<deductgrid<<endl;
-		//for(i=1;i<10-offset;i++) record_result(i,LTCI[i]);
-		//out<<"10th to 90th "<<endl;
-		//for(i=1;i<10-offset;i++){
-		//out<<i<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
-		//out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
-		//out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
-		//out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
-		//out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
-		//out<<endl;
-		//}
-		//out<<"*********************************************************************"<<endl;
-		//out.close();  
+		ofstream out(filename, ios::app);
+		if (out.is_open())   
+		{
+			out<<"*********************************************************************"<<endl;
+			out<<"deductile grid is :"<<deductgrid<<endl;
+			for(i=0;i<10-offset-Sstart;i++) record_result(i,LTCI[i]);
+			out<<"10th to 90th "<<endl;
+			for(i=0;i<10-offset-Sstart;i++){
+				out<<i+Sstart<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
+				out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
+				out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
+				out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
+				out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
+				out<<record.wequiv[i]<<"\t";
+				out<<endl;
+			}
+			out<<"*********************************************************************"<<endl;
+			out.close();  
 
-		//}
+		}
 
 
 		for(i=0;i<10-offset-START;i++) delete LTCI[i];

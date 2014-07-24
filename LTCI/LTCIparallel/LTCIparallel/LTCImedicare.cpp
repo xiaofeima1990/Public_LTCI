@@ -1407,7 +1407,7 @@ void Parallel_LTCI::comput(){
 	calcModel(wealthpercentile,false);
 	calcPrep(gender,wealthpercentile,0);
 	calcModel(wealthpercentile,true);
-	//simulate(wealthpercentile);
+	simulate(wealthpercentile);
 	writeresult(wealthpercentile,gender);
 	outprint();
 
