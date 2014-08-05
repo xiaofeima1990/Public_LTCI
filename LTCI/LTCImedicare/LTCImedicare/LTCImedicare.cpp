@@ -556,7 +556,7 @@ void Parallel_LTCI::calcModel( int wealthpercentile,bool NIflag ){
 
 
 
-		for(t=tn-2;t>=0;t--)
+		for(t=tn-2;t>=deductgrid-2;t--)
 		{
 
 			memset(lcp->Medicaid,0,sizeof(double[4][DEDUCTGRID][MAXGRID]));
