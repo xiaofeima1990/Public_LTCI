@@ -2,7 +2,7 @@ function [sben scost AFP EPDVMedical]=fn_premium(gender,DEDUCT)
 global simul
 replicate(gender);
 
-simul.N=30000;
+simul.N=50000;
 simul.benefit=zeros(simul.N,simul.T);
 simul.premium=zeros(simul.N,simul.T);
 simul.sick_t=zeros(simul.N,1);
@@ -108,20 +108,20 @@ simul.sick_dec=simul.sick_t;
  
  for t=1:simul.T
      
-     eliminat_index(:,1)=eliminat_index(:,1)+1*(simul.sick_t(:,t)>0);
-     eliminat_index(:,1)=eliminat_index(:,1).*(simul.sick_t(:,t)>0);
+      eliminat_index(:,1)=eliminat_index(:,1)+1*(simul.hstate(:,t)==4);
+      eliminat_index(:,1)=eliminat_index(:,1).*(simul.hstate(:,t)==4);
      % 这个是 记录每次进入elimination 的情况
   
  simul.benefit(:,1)=simul.benefit(:,1)+ ...
-        ((simul.hstate(:,t)==2).*simul.B(t,2)./simul.rfactor(t,1)+...
+        (simul.hstate(:,t)==2).*simul.B(t,2)./simul.rfactor(t,1)+...
          (simul.hstate(:,t)==3).*simul.B(t,3)./simul.rfactor(t,1)+...
-         (simul.hstate(:,t)==4).*simul.B(t,4)./simul.rfactor(t,1)).*(eliminat_index(:,1)>DEDUCT);
+         (simul.hstate(:,t)==4).*simul.B(t,4)./simul.rfactor(t,1).*(eliminat_index(:,1)>DEDUCT);
  
 simul.premium(:,1)=simul.premium(:,1)+...
         (simul.hstate(:,t)==1).*simul.P(t,1)/simul.rfactor(t,1)...
-        +((simul.hstate(:,t)==2).*simul.P(t,1)./simul.rfactor(t,1)...
+        +(simul.hstate(:,t)==2).*simul.P(t,1)./simul.rfactor(t,1)...
         +(simul.hstate(:,t)==3).*simul.P(t,1)./simul.rfactor(t,1)...
-        +(simul.hstate(:,t)==4).*simul.P(t,1)./simul.rfactor(t,1)).*(eliminat_index(:,1)<=DEDUCT);  
+        +(simul.hstate(:,t)==4).*simul.P(t,1)./simul.rfactor(t,1).*(eliminat_index(:,1)<=DEDUCT);  
  
  
  end

@@ -15,18 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\LTCIparallel.vcxproj.filters" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="E:\guoxuanma\research\LTCI\LTCIparallel\LTCIparallel\main.cpp">
+    <ClCompile Include="LTCImedicare.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\LTCIparallel\LTCIparallel\LTCImedicare.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\LTCIparallel\LTCIparallel\LTCImedicare.h">
+    <ClInclude Include="LTCImedicare.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
