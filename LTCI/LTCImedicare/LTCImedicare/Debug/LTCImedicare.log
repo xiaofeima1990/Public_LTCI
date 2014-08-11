@@ -1,66 +1,12 @@
-﻿生成启动时间为 2014/8/5 20:18:37。
+﻿生成启动时间为 2014/8/5 20:29:57。
      1>项目“E:\guoxuanma\research\LTCI\LTCImedicare\LTCImedicare\LTCImedicare.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug\LTCImedicare.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt LTCImedicare.cpp main.cpp
-         main.cpp
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(27): warning C4101: “i”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(185): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(186): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(189): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(197): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : 参见“sscanf”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(221): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(222): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : 参见“strcpy”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(224): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(232): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : 参见“sscanf”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(249): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(251): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(258): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(325) : 参见“sscanf”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(180): warning C4101: “inhandle”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(148): warning C4101: “lama”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(374): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\time.inl(112) : 参见“localtime”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(401): warning C4101: “time_end”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(401): warning C4101: “time_began”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(385): warning C4101: “l”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(390): warning C4101: “temp_test”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\main.cpp(385): warning C4101: “j”: 未引用的局部变量
-         LTCImedicare.cpp
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(64): warning C4101: “wrow”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(63): warning C4101: “WW”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(302): warning C4101: “p”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(302): warning C4101: “l”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1075): warning C4101: “N”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1068): warning C4101: “k”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1332): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\time.inl(112) : 参见“localtime”的声明
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1321): warning C4101: “i”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1321): warning C4101: “j”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1388): warning C4101: “time_began”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1433): warning C4101: “k”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1433): warning C4101: “j”: 未引用的局部变量
-     1>e:\guoxuanma\research\ltci\ltcimedicare\ltcimedicare\ltcimedicare.cpp(1462): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\time.inl(112) : 参见“localtime”的声明
-         正在生成代码...
+         所有输出均为最新。
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\guoxuanma\research\LTCI\LTCImedicare\Debug\LTCImedicare.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\LTCImedicare.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\guoxuanma\research\LTCI\LTCImedicare\Debug\LTCImedicare.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\guoxuanma\research\LTCI\LTCImedicare\Debug\LTCImedicare.lib" /MACHINE:X86 Debug\LTCImedicare.obj
-         Debug\main.obj
-         LINK : 没有找到 E:\guoxuanma\research\LTCI\LTCImedicare\Debug\LTCImedicare.exe 或上一个增量链接没有生成它；正在执行完全链接
+         所有输出均为最新。
          LTCImedicare.vcxproj -> E:\guoxuanma\research\LTCI\LTCImedicare\Debug\LTCImedicare.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\guoxuanma\research\LTCI\LTCImedicare\Debug\LTCImedicare.exe;#1" /manifest Debug\LTCImedicare.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“Debug\LTCImedicare.unsuccessfulbuild”。
          正在对“Debug\LTCImedicare.lastbuildstate”执行 Touch 任务。
@@ -68,4 +14,4 @@
 
 生成成功。
 
-已用时间 00:00:02.10
+已用时间 00:00:00.03

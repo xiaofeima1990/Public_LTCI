@@ -550,3 +550,141 @@ the wequiv is :
 26.7213	simulate : the wequiv is :
 26.7213	
 *********************************************************************
+*********************************************************************
+2014年8月5日20：58:0
+this is the wealthpercentile4
+deductile grid is :5
+the grid size is 823
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0	
+simulate
+0.337437
+implicit tax                                                  column 3 
+-1.#IND	
+simulate
+0.327779
+Net load														column 4
+-1.#IND	
+simulate
+0.66389
+the wequiv is :
+-11.8092	simulate : the wequiv is :
+-11.8092	
+*********************************************************************
+*********************************************************************
+2014年8月5日21：25:42
+this is the wealthpercentile5
+deductile grid is :5
+the grid size is 1056
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0	
+simulate
+0.326246
+implicit tax                                                  column 3 
+-1.#IND	
+simulate
+0.283617
+Net load														column 4
+-1.#IND	
+simulate
+0.641809
+the wequiv is :
+-7.46008	simulate : the wequiv is :
+-7.46008	
+*********************************************************************
+*********************************************************************
+2014年8月5日21：26:38
+this is the wealthpercentile6
+deductile grid is :5
+the grid size is 1218
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0	
+simulate
+0.311973
+implicit tax                                                  column 3 
+-1.#IND	
+simulate
+0.241191
+Net load														column 4
+-1.#IND	
+simulate
+0.620596
+the wequiv is :
+0.0609647	simulate : the wequiv is :
+0.0609647	
+*********************************************************************
+*********************************************************************
+2014年8月5日21：51:16
+this is the wealthpercentile7
+deductile grid is :5
+the grid size is 1480
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0	
+simulate
+0.307686
+implicit tax                                                  column 3 
+-1.#IND	
+simulate
+0.232675
+Net load														column 4
+-1.#IND	
+simulate
+0.616337
+the wequiv is :
+7.73632	simulate : the wequiv is :
+7.73632	
+*********************************************************************
+*********************************************************************
+2014年8月5日22：3:56
+this is the wealthpercentile8
+deductile grid is :5
+the grid size is 1646
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0	
+simulate
+0.28861
+implicit tax                                                  column 3 
+-1.#IND	
+simulate
+0.19819
+Net load														column 4
+-1.#IND	
+simulate
+0.599095
+the wequiv is :
+17.3131	simulate : the wequiv is :
+17.3131	
+*********************************************************************
+*********************************************************************
+2014年8月5日22：42:14
+this is the wealthpercentile9
+deductile grid is :5
+the grid size is 1847
+Medicaid share of EPDV of total LTC Exp (No private ins)		column 1
+0
+Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2
+0	
+simulate
+0.273075
+implicit tax                                                  column 3 
+-1.#IND	
+simulate
+0.181345
+Net load														column 4
+-1.#IND	
+simulate
+0.590673
+the wequiv is :
+23.7392	simulate : the wequiv is :
+23.7392	
+*********************************************************************

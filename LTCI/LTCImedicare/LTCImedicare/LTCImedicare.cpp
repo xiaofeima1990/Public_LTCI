@@ -1398,10 +1398,13 @@ void Parallel_LTCI::outprint(){
 			//cout<<"consuming time :"<<(time_began-time_end)/60<<endl;
 			cout<<"Medicaid share of EPDV of total LTC Exp (No private ins)		column 1"<<endl; 
 			cout<<MUstar/EPDVMedical<<endl;
+			cout<<"MUstar is "<<MUstar<<endl;
+
 			cout<<"simulate"<<endl;
 			cout<<Digram.MUstar/Digram.Medcost<<endl;
 			cout<<"Medicaid share of EPDV of total LTC Exp (With private ins)	column 2"<<endl;
 			cout<<Mstar/EPDVMedical<<endl;
+			cout<<"Mstar is "<<Mstar<<endl;
 			cout<<"simulate"<<endl;
 			cout<<Digram.MMstar/Digram.Medcost<<endl;
 			cout<<"implicit tax													column 3 "<<endl; 
