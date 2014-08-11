@@ -1,4 +1,4 @@
-#include "LTCImedicare.h"
+#include "LTCIparallel.h"
 
 extern int    healthstate[NSIMUL][TN];
 extern double q[TN+12][25];
@@ -13,6 +13,21 @@ typedef struct {
 	double MUstar[10],Mstar[10];
 	double Istarown[10],Istarnone[10];
 	double wequiv[10];
+
+	double S_Madicaid[10];
+	double S_Insurance[10];
+	double S_Madicaid_NI[10];
+	double S_Medcost[10];
+	double S_wequiv[10];
+	// medicare 
+	double S_medicare[10];
+	// medicaid joint number 
+	double S_med_joint_NI[10];
+	double S_med_joint[10];
+	// OOP expense
+	double S_OOP[10];
+	double S_OOP_NI[10];
+
 
 
 } RECORD;
@@ -361,6 +376,16 @@ extern void record_result(int wealthpercentile,Parallel_LTCI *LTCI){
 	record.Istarown[wealthpercentile]=LTCI->Digram.Istar;
 	record.EPDVMedical[wealthpercentile]=LTCI->Digram.Medicalstar;
 	record.wequiv[wealthpercentile]=LTCI->Digram.wequiv;
+	record.S_Insurance[wealthpercentile]=LTCI->Digram.S_Insurance;
+	record.S_Madicaid[wealthpercentile]=LTCI->Digram.S_Medicaid;
+	record.S_Madicaid_NI[wealthpercentile]=LTCI->Digram.S_Medicaid_NI;
+	record.S_med_joint[wealthpercentile]=LTCI->Digram.S_med_joint;
+	record.S_med_joint_NI[wealthpercentile]=LTCI->Digram.S_med_joint_NI;
+	record.S_Medcost[wealthpercentile]=LTCI->Digram.Medcost;
+	record.S_medicare[wealthpercentile]=LTCI->Digram.S_medicare;
+	record.S_OOP[wealthpercentile]=LTCI->Digram.S_OOP;
+	record.S_OOP_NI[wealthpercentile]=LTCI->Digram.S_OOP_NI;
+	record.S_wequiv[wealthpercentile]=LTCI->Digram.S_wequiv;
 
 }
 
@@ -430,7 +455,7 @@ int main(){
 		offset =0;
 		Sstart=START;
 
-		Parallel_LTCI  *LTCI[7];
+		Parallel_LTCI  *LTCI[10];
 
 		
 		{
@@ -557,7 +582,7 @@ int main(){
 			out<<"*********************************************************************"<<endl;
 			out<<"deductile grid is :"<<deductgrid<<endl;
 			for(i=0;i<10-offset-Sstart;i++) record_result(i,LTCI[i]);
-			out<<"10th to 90th "<<endl;
+			out<<"table  "<<endl;
 			for(i=0;i<10-offset-Sstart;i++){
 				out<<i+Sstart<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
 				out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
@@ -568,6 +593,40 @@ int main(){
 				out<<endl;
 			}
 			out<<"*********************************************************************"<<endl;
+			out<<"----------------------------------------------------------------------"<<endl;
+			out<<"---------------------------------raw data---------------------------- "<<endl;
+			out<<"----------------------------------------------------------------------"<<endl;
+			out<<"index for the data:  S_Madicaid \t S_Insurance \t S_Madicaid_NI \t S_Medcost \t S_wequiv \t S_medicare \t S_med_joint_NI \t S_med_joint \t S_OOP \t S_OOP_NI"<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_Madicaid[i]<<"\t";
+			out<<endl;			
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_Insurance[i]<<"\t";
+			out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_Madicaid_NI[i]<<"\t";
+				out<<endl;	
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_Medcost[i]<<"\t";
+				out<<endl;	
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_wequiv[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_medicare[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_med_joint_NI[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_med_joint[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_OOP[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.S_OOP_NI[i]<<"\t";
+				out<<endl;
+			out<<"EPDVMedical  wequive "<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.EPDVMedical[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.wequiv[i]<<"\t";
+				out<<endl;	
+	
+
+
+
+
 			out.close();  
 
 		}
