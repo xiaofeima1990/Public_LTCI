@@ -7,16 +7,16 @@ extern int    healthstate[NSIMUL][TN];
 extern double q[TN+12][25];
 
 static double Preimum[10][2]={   
-	0.454813049,	0.20096996,
-	0.439435863,	0.185611818,
-	0.417177805,	0.171281873,
-	0.396360788,	0.158439056,
-	0.376949484,	0.146653683,
-	0.358820655,	0.135746975,
-	0.34173364,	    0.125675334,
-	0.32572715,	    0.116503167,
-	0.310722823,	0.108132752,
-	0.296530096,	0.100434849
+	0.158724116012061,   0.075180408468744,
+	0.154664555583763,   0.072396724185945,
+	0.149719593947892,   0.068749592484363,
+	0.145678590952717,   0.066287029863718,
+	0.139442081373717,   0.062678062662787,
+	0.135529299327282,   0.059620400046831,
+	0.130516413194535,   0.057322842751847,
+	0.126486793499011,   0.055238018615880,
+	0.123616709231334,   0.052279810443120,
+	0.119747598615914,   0.051606568870735
 
 };
 
@@ -148,24 +148,31 @@ void Parallel_LTCI::calcPrep(int gender, int wealthpercentile, int priflag)
 
 
 	//calculate actuarially fair premium	
-		if (priflag==1)
-		{
-			if (deductgrid==1)
-				AFP=Preimum[0][gender];
-			else
-				AFP=Preimum[deductgrid/2 -1][gender];
+	if (priflag==1)
+	{
+		if (deductgrid==1)
+		{for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
+		for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct.B[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
 
-		}else
-		{	for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
-			for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct.B[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
+		scost=0; sben=0;
+		for(i=0;i<TN;i++) scost=scost+cost[i][0];
+		for(i=0;i<TN;i++) for(j=0;j<5;j++) sben=sben+ben[i][j];
 
-			scost=0; sben=0;
-			for(i=0;i<TN;i++) scost=scost+cost[i][0];
-			for(i=0;i<TN;i++) for(j=0;j<5;j++) sben=sben+ben[i][j];
+		AFP = ( sben / scost)*para.premium;}
+		else
+			AFP=Preimum[deductgrid-1][gender];
 
-			AFP = ( sben / scost)*para.premium;
+	}else
+	{	for(i=0;i<TN;i++)for(j=0;j<5;j++)cost[i][j]=CalcStruct.P[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
+	for(i=0;i<TN;i++)for(j=0;j<5;j++)ben [i][j]=CalcStruct.B[i][j] * CalcStruct.Prob[i+1][j] / rfactor[i];
 
-		}
+	scost=0; sben=0;
+	for(i=0;i<TN;i++) scost=scost+cost[i][0];
+	for(i=0;i<TN;i++) for(j=0;j<5;j++) sben=sben+ben[i][j];
+
+	AFP = ( sben / scost)*para.premium;
+
+	}
 
 
 
@@ -1311,26 +1318,27 @@ void Parallel_LTCI::writeresult(int wealthpercentile ,int gender){
 			out<<"the grid size is "<<CalcStruct.wrow<<endl;
 			//out<<"consuming time :"<<(time_began-time_end)/60<<endl;
 			out<<"Medicaid share of EPDV of total LTC Exp (No private ins)		column 1"<<endl; 
-			out<<MUstar/EPDVMedical<<endl;	
+			out<<MUstar/EPDVMedical<<endl;
+			out<<"simulate"<<endl;
+			out<<Digram.S_Medicaid_NI/Digram.Medcost<<endl;
 			out<<"Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2"<<endl;
-			out<<Digram.Mstar/EPDVMedical<<"\t";
-			out<<endl;
+			out<<Digram.Mstar/EPDVMedical<<endl;
 			out<<"simulate"<<endl;
-			out<<Digram.S_Medicaid/EPDVMedical<<endl;
+			out<<Digram.S_Medicaid/Digram.Medcost<<endl;
 			out<<"implicit tax                                                  column 3 "<<endl; 
-			out<<(MUstar - Mstar)/Istarown<<"\t";
-			out<<endl;
+			out<<(MUstar - Mstar)/Istarown<<endl;
 			out<<"simulate"<<endl;
-			out<<(MUstar-Digram.S_Medicaid)/Digram.S_Insurance<<endl;
+			out<<(Digram.S_Medicaid_NI-Digram.S_Medicaid)/Digram.S_Insurance<<endl;
 			out<<"Net load														column 4"<<endl; 
 			out<<(1-(Istarown-(MUstar-Mstar))/(Istarown/para.MW))<<"\t";
 			out<<endl;
 			out<<"simulate"<<endl;
-			out<<(1-(Digram.S_Insurance-(MUstar-Digram.S_Medicaid))/(Digram.S_Insurance/para.MW))<<endl;
+			out<<(1-(Digram.S_Insurance-(Digram.S_Medicaid_NI-Digram.S_Medicaid))/(Digram.S_Insurance/para.MW))<<endl;
 			out<<"the wequiv is :"<<endl;
 			out<<Digram.wequiv<<"\t";
 			out<<endl;
-
+			out<<"simulate"<<endl;
+			out<<Digram.S_wequiv<<endl;
 
 			out<<"*********************************************************************"<<endl;
 
@@ -1352,31 +1360,35 @@ void Parallel_LTCI::outprint(){
 	time_end=time(NULL);
 
 			cur_time();
-            cout<<"*********************************************************************"<<endl;
+			cout<<"*********************************************************************"<<endl;
 			cout<<"this is the wealthpercentile"<<wealthpercentile<<endl;
+			cout<<"deductile grid is :"<<deductgrid<<endl;
 			cout<<"the grid size is "<<CalcStruct.wrow<<endl;
-			//cout<<"consuming time :"<<(time_began-time_end)/60<<endl;
+			//out<<"consuming time :"<<(time_began-time_end)/60<<endl;
 			cout<<"Medicaid share of EPDV of total LTC Exp (No private ins)		column 1"<<endl; 
 			cout<<MUstar/EPDVMedical<<endl;
 			cout<<"simulate"<<endl;
 			cout<<Digram.S_Medicaid_NI/Digram.Medcost<<endl;
-			cout<<"Medicaid share of EPDV of total LTC Exp (With private ins)	column 2"<<endl;
-			cout<<Mstar/EPDVMedical<<endl;
+			cout<<"Medicaid share of EPDV of total LTC Exp (With private  ins)	column 2"<<endl;
+			cout<<Digram.Mstar/EPDVMedical<<endl;
 			cout<<"simulate"<<endl;
 			cout<<Digram.S_Medicaid/Digram.Medcost<<endl;
-			cout<<"implicit tax													column 3 "<<endl; 
+			cout<<"implicit tax                                                  column 3 "<<endl; 
 			cout<<(MUstar - Mstar)/Istarown<<endl;
 			cout<<"simulate"<<endl;
 			cout<<(Digram.S_Medicaid_NI-Digram.S_Medicaid)/Digram.S_Insurance<<endl;
 			cout<<"Net load														column 4"<<endl; 
-			cout<<(1-(Istarown-(MUstar-Mstar))/(Istarown/para.MW))<<endl;
+			cout<<(1-(Istarown-(MUstar-Mstar))/(Istarown/para.MW))<<"\t";
+			cout<<endl;
 			cout<<"simulate"<<endl;
 			cout<<(1-(Digram.S_Insurance-(Digram.S_Medicaid_NI-Digram.S_Medicaid))/(Digram.S_Insurance/para.MW))<<endl;
-
 			cout<<"the wequiv is :"<<endl;
+			cout<<Digram.wequiv<<"\t";
+			cout<<endl;
+			cout<<"simulate"<<endl;
+			cout<<Digram.S_wequiv<<endl;
 
-			cout<<Digram.wequiv<<endl;
-
+			cout<<"*********************************************************************"<<endl;
 			cout<<"*********************************************************************"<<endl;
 
 
@@ -1405,7 +1417,7 @@ void Parallel_LTCI::comput(){
 	calcModel(wealthpercentile,false);
 	calcPrep(gender,wealthpercentile,0);
 	calcModel(wealthpercentile,true);
-	//simulate(wealthpercentile);
+	simulate(wealthpercentile);
 	writeresult(wealthpercentile,gender);
 	outprint();
 
