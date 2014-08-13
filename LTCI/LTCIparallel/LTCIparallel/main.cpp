@@ -579,19 +579,19 @@ int main(){
 		ofstream out(filename, ios::app);
 		if (out.is_open())   
 		{
-			out<<"*********************************************************************"<<endl;
+// 			out<<"*********************************************************************"<<endl;
 			out<<"deductile grid is :"<<deductgrid<<endl;
 			for(i=0;i<10-offset-Sstart;i++) record_result(i,LTCI[i]);
-			out<<"table  "<<endl;
-			for(i=0;i<10-offset-Sstart;i++){
-				out<<i+Sstart<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
-				out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
-				out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
-				out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
-				out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
-				out<<record.wequiv[i]<<"\t";
-				out<<endl;
-			}
+// 			out<<"table  "<<endl;
+// 			for(i=0;i<10-offset-Sstart;i++){
+// 				out<<i+Sstart<<"0th : \t 1 \t 2 \t 3 \t 4"<<endl;
+// 				out<<record.MUstar[i]/record.EPDVMedical[i]<<'\t';
+// 				out<<record.Mstar[i]/record.EPDVMedical[i]<<"\t";
+// 				out<<(record.MUstar[i] - record.Mstar[i])/record.Istarown[i]<<"\t";
+// 				out<<(1-(record.Istarown[i]-(record.MUstar[i]-record.Mstar[i]))/(record.Istarown[i]/para.MW))<<"\t";
+// 				out<<record.wequiv[i]<<"\t";
+// 				out<<endl;
+// 			}
 			out<<"*********************************************************************"<<endl;
 			out<<"----------------------------------------------------------------------"<<endl;
 			out<<"---------------------------------raw data---------------------------- "<<endl;
@@ -617,13 +617,19 @@ int main(){
 				out<<endl;
 			for(i=0;i<10-offset-Sstart;i++) out<<record.S_OOP_NI[i]<<"\t";
 				out<<endl;
-			out<<"EPDVMedical  wequive "<<endl;
+			out<<"EPDVMedical  wequive Mstar Istar  MUstar Istarnon "<<endl;
 			for(i=0;i<10-offset-Sstart;i++) out<<record.EPDVMedical[i]<<"\t";
 				out<<endl;
 			for(i=0;i<10-offset-Sstart;i++) out<<record.wequiv[i]<<"\t";
 				out<<endl;	
-	
-
+			for(i=0;i<10-offset-Sstart;i++) out<<record.Mstar[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.Istarown[i]<<"\t";
+				out<<endl;	
+			for(i=0;i<10-offset-Sstart;i++) out<<record.MUstar[i]<<"\t";
+				out<<endl;
+			for(i=0;i<10-offset-Sstart;i++) out<<record.Istarnone[i]<<"\t";
+				out<<endl;	
 
 
 

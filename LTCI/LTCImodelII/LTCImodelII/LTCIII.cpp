@@ -2,9 +2,9 @@
 
 
 #define TN 480
-#define MAXGRID 6087
+#define MAXGRID 2013	
 //#define DEDUCTGRID 19
-#define DEDUCTGRID 8
+#define DEDUCTGRID 1
 #define NSIMUL		50000
 /************************************************************************/
 /* a test for my suppose only two indexes for in period and out period 
@@ -303,29 +303,26 @@ void calcSetup(){
 
 	para.crra=3;
 
-	para.Food=644/X;      //Food = SSI level used to parameterize food/housing benefit
+	para.Food=515/X;      //Food = SSI level used to parameterize food/housing benefit
 	
 	para.Wbar=2;	      // @ wealth excluded from Medicaid spend-down (base case is 2000/X)	@ 
 	para.Cbar=0.03;		  // @ min consumption provided if on Medicaid	@
-	para.Cbar2=0.674;        // @ CBAR WHILE IN HOME CARE @;
+	para.Cbar2=0.545;        // @ CBAR WHILE IN HOME CARE @;
 
 	para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare @
 
 
 
 
+	para.medicare=0.35;        // % @ Fraction of Home care costs covered by Medicare 
 	//medical cost
-	para.NHamt=78.110/12;      	       // % @ Monthly cost of NH  $51480  @
-	para.ALFamt=3.477;              //% @ Monthly cost of ALF $25908 per year  @
-
-	para.HCnonrn=0.021;               // @ Hourly HC costs (non RN) @
-	para.HCrn=0.043;                  // @ Hourly HC costs (RN)  @
-
-
-
-
-	para.Binf=0.05;
-	para.Bben=4740/X;
+	para.NHamt=(double)4.29;      	       // % @ Monthly cost of NH  $51480  @
+	para.ALFamt=(double)2.159;              //% @ Monthly cost of ALF $25908 per year  @
+	para.HCnonrn=0.018;               // @ Hourly HC costs (non RN) @
+	para.HCrn=0.037;                  // @ Hourly HC costs (RN)  @
+	para.MWcount=0;					//market load choose (male): 0 :0.5; 1: 0.3; 2:0.6; 3: 0.6; 4: 0
+	para.Binf=0;
+	para.Bben=(double)3;
 
 
 
@@ -2304,7 +2301,7 @@ void willtopay(int gender){
 
 
 	//for(wealthpercentil=3;wealthpercentil<10;wealthpercentil++)
-	wealthpercentil=9;
+	wealthpercentil=6;
 	{
 		time_began=time(NULL);
 		/*calculate preparation*/
@@ -2326,7 +2323,7 @@ void willtopay(int gender){
 
 
 		}
-		para.wealth=para.wealth*224.937/172.192;
+		//para.wealth=para.wealth*224.937/172.192;
 
 		para.W0=para.wealth*(1-para.alpha)/X;   
 
@@ -2342,7 +2339,7 @@ void willtopay(int gender){
 
  			deduflag=1;
 			calcPrep(gender);
-			gridsetup(0);
+			gridsetup(1);
 			calcModel(1);
 
 			deduflag=0;	
@@ -2359,7 +2356,7 @@ void willtopay(int gender){
 			//EPDVMedical=Digram->Medicalstar;
 			
 			Mstar=Digram->Mstar[0];EPDVMedical=Digram->Medicalstar;Istarown=Digram->Istar[0];
-			//simulate();
+			simulate();
 
 		time_end=time(NULL);
 

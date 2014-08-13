@@ -1,4 +1,4 @@
-function [sben scost AFP EPDVMedical]=fn_premium(gender,DEDUCT)
+function [sben scost AFP EPDVMedical]=fn_premium_deduct(gender,DEDUCT)
 global simul
 replicate(gender);
 

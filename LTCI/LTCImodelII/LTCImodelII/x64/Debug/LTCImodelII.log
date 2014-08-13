@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-﻿生成启动时间为 2014/6/10 12:28:35。
-     1>项目“E:\myExp\gitHub\research\LTCI\LTCImodelII\LTCImodelII\LTCImodelII.vcxproj”在节点 2 上(build 个目标)。
-=======
-﻿生成启动时间为 2014/6/20 15:27:02。
+﻿生成启动时间为 2014/8/12 11:34:18。
      1>项目“E:\guoxuanma\research\LTCI\LTCImodelII\LTCImodelII\LTCImodelII.vcxproj”在节点 2 上(build 个目标)。
->>>>>>> be175d0163651bf316ad3b23d38f9260bf606af7
      1>InitializeBuildStatus:
          正在创建“x64\Debug\LTCImodelII.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         D:\系统软件\vs2010\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt LTCIII.cpp /Qpar 
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt LTCIII.cpp /Qpar 
      1>cl : 命令行 warning D9002: 忽略未知选项“/Qpar”
          LTCIII.cpp
      1>LTCIII.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -22,77 +17,74 @@
      1>LTCIII.cpp(266): warning C4101: “WW”: 未引用的局部变量
      1>LTCIII.cpp(267): warning C4101: “k”: 未引用的局部变量
      1>LTCIII.cpp(267): warning C4101: “j”: 未引用的局部变量
-     1>LTCIII.cpp(406): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
-     1>LTCIII.cpp(407): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
-     1>LTCIII.cpp(410): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(234) : 参见“fopen”的声明
-     1>LTCIII.cpp(418): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(325) : 参见“sscanf”的声明
-     1>LTCIII.cpp(443): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
-     1>LTCIII.cpp(444): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\string.h(105) : 参见“strcpy”的声明
-     1>LTCIII.cpp(446): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(234) : 参见“fopen”的声明
-     1>LTCIII.cpp(454): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(325) : 参见“sscanf”的声明
-     1>LTCIII.cpp(469): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(234) : 参见“fopen”的声明
-     1>LTCIII.cpp(471): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(234) : 参见“fopen”的声明
-     1>LTCIII.cpp(478): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\系统软件\vs2010\VC\include\stdio.h(325) : 参见“sscanf”的声明
-     1>LTCIII.cpp(363): warning C4101: “product”: 未引用的局部变量
-     1>LTCIII.cpp(401): warning C4101: “inhandle”: 未引用的局部变量
-     1>LTCIII.cpp(371): warning C4101: “lama”: 未引用的局部变量
-     1>LTCIII.cpp(580): warning C4101: “k”: 未引用的局部变量
-     1>LTCIII.cpp(580): warning C4101: “j”: 未引用的局部变量
-     1>LTCIII.cpp(604): warning C4101: “scost”: 未引用的局部变量
-     1>LTCIII.cpp(610): warning C4101: “wrow”: 未引用的局部变量
-     1>LTCIII.cpp(602): warning C4101: “cost”: 未引用的局部变量
-     1>LTCIII.cpp(607): warning C4101: “griddense”: 未引用的局部变量
-     1>LTCIII.cpp(603): warning C4101: “ben”: 未引用的局部变量
-     1>LTCIII.cpp(609): warning C4101: “WW”: 未引用的局部变量
-     1>LTCIII.cpp(596): warning C4101: “k”: 未引用的局部变量
-     1>LTCIII.cpp(604): warning C4101: “sben”: 未引用的局部变量
-     1>LTCIII.cpp(608): warning C4101: “X”: 未引用的局部变量
-     1>LTCIII.cpp(836): warning C4101: “Vr”: 未引用的局部变量
-     1>LTCIII.cpp(848): warning C4101: “Medicalstar”: 未引用的局部变量
-     1>LTCIII.cpp(832): warning C4101: “ded2”: 未引用的局部变量
-     1>LTCIII.cpp(832): warning C4101: “l”: 未引用的局部变量
-     1>LTCIII.cpp(1574): warning C4101: “constraint”: 未引用的局部变量
-     1>LTCIII.cpp(1508): warning C4101: “l”: 未引用的局部变量
-     1>LTCIII.cpp(1987): warning C4101: “j”: 未引用的局部变量
-     1>LTCIII.cpp(2062): warning C4101: “N”: 未引用的局部变量
-     1>LTCIII.cpp(2058): warning C4101: “k”: 未引用的局部变量
-     1>LTCIII.cpp(2284): warning C4101: “EPDVMedical2”: 未引用的局部变量
-     1>LTCIII.cpp(2278): warning C4101: “i”: 未引用的局部变量
-     1>LTCIII.cpp(2279): warning C4101: “Vr”: 未引用的局部变量
-     1>LTCIII.cpp(2279): warning C4101: “deduct”: 未引用的局部变量
-     1>LTCIII.cpp(2282): warning C4101: “LTCIflag”: 未引用的局部变量
-     1>LTCIII.cpp(2278): warning C4101: “k”: 未引用的局部变量
-     1>LTCIII.cpp(2278): warning C4101: “t”: 未引用的局部变量
-     1>LTCIII.cpp(2278): warning C4101: “j”: 未引用的局部变量
-     1>LTCIII.cpp(2418): warning C4101: “EPDVMedical2”: 未引用的局部变量
-     1>LTCIII.cpp(2417): warning C4101: “j”: 未引用的局部变量
-     1>e:\myexp\github\research\ltci\ltcimodelii\ltcimodelii\ltciii.cpp(2098): warning C4700: 使用了未初始化的局部变量“wrow”
+     1>LTCIII.cpp(403): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>LTCIII.cpp(404): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>LTCIII.cpp(407): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>LTCIII.cpp(415): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(325) : 参见“sscanf”的声明
+     1>LTCIII.cpp(440): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>LTCIII.cpp(441): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>LTCIII.cpp(443): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>LTCIII.cpp(451): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(325) : 参见“sscanf”的声明
+     1>LTCIII.cpp(466): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>LTCIII.cpp(468): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 参见“fopen”的声明
+     1>LTCIII.cpp(475): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(325) : 参见“sscanf”的声明
+     1>LTCIII.cpp(360): warning C4101: “product”: 未引用的局部变量
+     1>LTCIII.cpp(398): warning C4101: “inhandle”: 未引用的局部变量
+     1>LTCIII.cpp(368): warning C4101: “lama”: 未引用的局部变量
+     1>LTCIII.cpp(577): warning C4101: “k”: 未引用的局部变量
+     1>LTCIII.cpp(577): warning C4101: “j”: 未引用的局部变量
+     1>LTCIII.cpp(601): warning C4101: “scost”: 未引用的局部变量
+     1>LTCIII.cpp(607): warning C4101: “wrow”: 未引用的局部变量
+     1>LTCIII.cpp(599): warning C4101: “cost”: 未引用的局部变量
+     1>LTCIII.cpp(604): warning C4101: “griddense”: 未引用的局部变量
+     1>LTCIII.cpp(600): warning C4101: “ben”: 未引用的局部变量
+     1>LTCIII.cpp(606): warning C4101: “WW”: 未引用的局部变量
+     1>LTCIII.cpp(593): warning C4101: “k”: 未引用的局部变量
+     1>LTCIII.cpp(601): warning C4101: “sben”: 未引用的局部变量
+     1>LTCIII.cpp(605): warning C4101: “X”: 未引用的局部变量
+     1>LTCIII.cpp(833): warning C4101: “Vr”: 未引用的局部变量
+     1>LTCIII.cpp(845): warning C4101: “Medicalstar”: 未引用的局部变量
+     1>LTCIII.cpp(829): warning C4101: “ded2”: 未引用的局部变量
+     1>LTCIII.cpp(829): warning C4101: “l”: 未引用的局部变量
+     1>LTCIII.cpp(1521): warning C4101: “Medtemp”: 未引用的局部变量
+     1>LTCIII.cpp(1572): warning C4101: “constraint”: 未引用的局部变量
+     1>LTCIII.cpp(1505): warning C4101: “l”: 未引用的局部变量
+     1>LTCIII.cpp(1985): warning C4101: “j”: 未引用的局部变量
+     1>LTCIII.cpp(2060): warning C4101: “N”: 未引用的局部变量
+     1>LTCIII.cpp(2056): warning C4101: “k”: 未引用的局部变量
+     1>LTCIII.cpp(2282): warning C4101: “EPDVMedical2”: 未引用的局部变量
+     1>LTCIII.cpp(2276): warning C4101: “i”: 未引用的局部变量
+     1>LTCIII.cpp(2277): warning C4101: “Vr”: 未引用的局部变量
+     1>LTCIII.cpp(2277): warning C4101: “deduct”: 未引用的局部变量
+     1>LTCIII.cpp(2280): warning C4101: “LTCIflag”: 未引用的局部变量
+     1>LTCIII.cpp(2276): warning C4101: “k”: 未引用的局部变量
+     1>LTCIII.cpp(2276): warning C4101: “t”: 未引用的局部变量
+     1>LTCIII.cpp(2276): warning C4101: “j”: 未引用的局部变量
+     1>LTCIII.cpp(2416): warning C4101: “EPDVMedical2”: 未引用的局部变量
+     1>LTCIII.cpp(2415): warning C4101: “j”: 未引用的局部变量
+     1>e:\guoxuanma\research\ltci\ltcimodelii\ltcimodelii\ltciii.cpp(2096): warning C4700: 使用了未初始化的局部变量“wrow”
        Link:
-         D:\系统软件\vs2010\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\myExp\gitHub\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\LTCImodelII.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\myExp\gitHub\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.pdb" /HEAP:"102400","102400" /STACK:"102400","102400" /LARGEADDRESSAWARE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\myExp\gitHub\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.lib" /MACHINE:X64 x64\Debug\LTCIII.obj
-         LINK : 没有找到 E:\myExp\gitHub\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe 或上一个增量链接没有生成它；正在执行完全链接
-         LTCImodelII.vcxproj -> E:\myExp\gitHub\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"E:\guoxuanma\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\LTCImodelII.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\guoxuanma\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.pdb" /HEAP:"102400","102400" /STACK:"102400","102400" /LARGEADDRESSAWARE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\guoxuanma\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.lib" /MACHINE:X64 x64\Debug\LTCIII.obj
+         LINK : 没有找到 E:\guoxuanma\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe 或上一个增量链接没有生成它；正在执行完全链接
+         LTCImodelII.vcxproj -> E:\guoxuanma\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe
        Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\myExp\gitHub\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe;#1" /manifest x64\Debug\LTCImodelII.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\guoxuanma\research\LTCI\LTCImodelII\x64\Debug\LTCImodelII.exe;#1" /manifest x64\Debug\LTCImodelII.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“x64\Debug\LTCImodelII.unsuccessfulbuild”。
          正在对“x64\Debug\LTCImodelII.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“E:\myExp\gitHub\research\LTCI\LTCImodelII\LTCImodelII\LTCImodelII.vcxproj”(build 个目标)的操作。
+     1>已完成生成项目“E:\guoxuanma\research\LTCI\LTCImodelII\LTCImodelII\LTCImodelII.vcxproj”(build 个目标)的操作。
 
 生成成功。
 
-<<<<<<< HEAD
-已用时间 00:00:01.97
-=======
-已用时间 00:00:00.04
->>>>>>> be175d0163651bf316ad3b23d38f9260bf606af7
+已用时间 00:00:01.01

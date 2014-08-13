@@ -1113,8 +1113,10 @@ void Parallel_LTCI::simulate(int wealthpercentile){
 	 for(t=0;t<TN;t++){
 		 for(i=0;i<NSIMUL;i++) 
 			 if(healthstate[i][t]!=4){
-
+				 if(ii==0)
 				 s->Medcost[i]=s->Medcost[i]+(1/rfactor[t])*M[t][healthstate[i][t]];
+
+
 				  healindex=healthstate[i][t];
 				 //elimination period for calculation
 				  s->tempIndex[i]=s->tempIndex[i]*(healthstate[i][t]>0);
@@ -1122,7 +1124,7 @@ void Parallel_LTCI::simulate(int wealthpercentile){
 				  if(s->tempIndex[i]>deductgrid-1)s->tempIndex[i]=deductgrid-1;
 
 
-				 constraint=A+ii*LTCI[t][healthstate[i][t]]*(s->tempIndex[i]+1>=deductgrid-1)+wdis[s->curWW[i]]-M[t][healthstate[i][t]];
+				 constraint=A+ii*LTCI[t][healthstate[i][t]]*(s->tempIndex[i]>deductgrid-2) + ii*LTCI[t][0]*(s->tempIndex[i] <= deductgrid-2) +wdis[s->curWW[i]]-M[t][healthstate[i][t]];
 
 				 if(para.Mcaid==1 &&  constraint < (Cbar2+Wbcar) && constraint-wdis[s->curWW[i]]/(1+r) < Cbar2 && healthstate[i][t]==1)
 				 {
@@ -1174,21 +1176,21 @@ void Parallel_LTCI::simulate(int wealthpercentile){
 
 				 }
 				 else { // not on medicaid  // LTCI pay for insurance
-					 s->Medicare[i]=s->Medicare[i]+(1 / rfactor[t])*M[t][healindex]*0.35/0.65;
+					 if (healthstate[i][t]==1) s->Medicare[i]=s->Medicare[i]+(1 / rfactor[t])*M[t][healindex]*0.35/0.65;
 					 s->nextWW[i]=Astream[s->tempIndex[i]][t][healthstate[i][t]][s->curWW[i]];
-					 if(ii==0)
-						if (healthstate[i][t]>=1) s->OOP_NI[i]=s->OOP_NI[i]+(1/rfactor[t])*M[t][healindex];
-					 else{
-						if (healthstate[i][t]>=1)
+					 if (healthstate[i][t]>=1)
+					 { if(ii==0)
+						s->OOP_NI[i]=s->OOP_NI[i]+(1/rfactor[t])*M[t][healthstate[i][t]];
+					   if(ii==1){
 							if( s->tempIndex[i] > deductgrid-2){
-								s->OOP[i]=s->OOP[i]+(1/rfactor[t])*max(M[t][healindex]-LTCI[t][healthstate[i][t]],(double)0);
+								s->OOP[i]=s->OOP[i]+(1/rfactor[t])*max(M[t][healthstate[i][t]]-LTCI[t][healthstate[i][t]],(double)0);
 								s->insurance[i]=s->insurance[i] + (1/rfactor[t])*LTCI[t][healthstate[i][t]];
 							}
-							else
-								if (healthstate[i][t]>=1) s->OOP[i]=s->OOP[i]+(1/rfactor[t])*M[t][healindex];
+							
+							if (healthstate[i][t]>=1) s->OOP[i]=s->OOP[i]+(1/rfactor[t])*M[t][healthstate[i][t]];
 						
 					 }
-					
+					 }
 
 
 				 }

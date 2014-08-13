@@ -2,10 +2,10 @@ function [sben scost AFP EPDVMedical]=fn_premium(gender,DEDUCT)
 global simul
 replicate(gender);
 
-simul.N=50000;
+simul.N=10000;
 simul.benefit=zeros(simul.N,simul.T);
 simul.premium=zeros(simul.N,simul.T);
-simul.sick_t=zeros(simul.N,1);
+simul.sick_t=zeros(simul.N,simul.T);
 simul.hstate=zeros(simul.N,simul.T);
 
 % temp index for each in illness elimination
